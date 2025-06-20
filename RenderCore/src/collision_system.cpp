@@ -1,6 +1,6 @@
 #include <actor.h>
 #include <algorithm>
-#include <collider.h>
+#include <components/collider.h>
 #include <collision_listener.h>
 #include <collision_system.h>
 #include <hit_info.h>
@@ -32,14 +32,14 @@ auto collision_system::update_collisions(const world& w) -> void
 
 	for (auto i = 0ul; i != actors.size(); ++i)
 	{
-		const auto& a = actors[i];
+		const auto a = actors[i];
 		const auto a_col = a->get_component<collider>();
 
 		if (!a_col || !a->enabled()) { continue; }
 
 		for (auto j = i + 1ul; j != actors.size(); ++j)
 		{
-			const auto& b = actors[j];
+			const auto b = actors[j];
 			const auto b_col = b->get_component<collider>();
 
 			if (!b_col || !b->enabled()) { continue; }
@@ -49,7 +49,7 @@ auto collision_system::update_collisions(const world& w) -> void
 				auto info = hit_info{};
 				info.point = impact_point;
 
-				const auto key = std::minmax(a.get(), b.get());
+				const auto key = std::minmax({ a.get(), b.get() });
 				current_collisions.insert(key);
 
 				const bool is_new = !active_collisions.contains(key);

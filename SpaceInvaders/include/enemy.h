@@ -3,7 +3,7 @@
 #include <actor.h>
 
 #include <collision_listener.h>
-#include <enums.h>
+#include <types.h>
 
 class animation_renderer;
 class game;

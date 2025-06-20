@@ -2,7 +2,7 @@
 
 #include <components/animation_renderer.h>
 #include <components/box_collider.h>
-#include <enums.h>
+#include <types.h>
 #include <logger.h>
 #include <components/pixel_collider.h>
 #include <resource_manager.h>

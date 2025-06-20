@@ -1,6 +1,6 @@
 #include <actor.h>
 #include <ranges>
-#include <transform.h>
+#include <components/transform.h>
 
 actor::actor(world& w, std::string name) : m_world{ w }, m_name(std::move(name)) {}
 

@@ -4,7 +4,7 @@
 #include <map>
 
 #include <actor.h>
-#include <enums.h>
+#include <types.h>
 
 class enemy;
 class world;

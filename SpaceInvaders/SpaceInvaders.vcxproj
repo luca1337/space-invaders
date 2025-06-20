@@ -44,10 +44,10 @@
     <ClInclude Include="include\components\shooter_component.h" />
     <ClInclude Include="include\enemy.h" />
     <ClInclude Include="include\enemy_formation.h" />
-    <ClInclude Include="include\enums.h" />
     <ClInclude Include="include\game.h" />
     <ClInclude Include="include\shield.h" />
     <ClInclude Include="include\ship.h" />
+    <ClInclude Include="include\types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
