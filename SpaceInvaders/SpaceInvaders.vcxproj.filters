@@ -1,61 +1,61 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="src\bullet.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\enemy_formation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\player_controller.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\enemy.cpp">
+      <Filter>Source Files\actors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\bullet.cpp">
+      <Filter>Source Files\actors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\enemy_formation.cpp">
+      <Filter>Source Files\actors</Filter>
     </ClCompile>
     <ClCompile Include="src\shield.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\actors</Filter>
     </ClCompile>
     <ClCompile Include="src\ship.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\actors</Filter>
+    </ClCompile>
+    <ClCompile Include="src\components\player_controller.cpp">
+      <Filter>Source Files\components</Filter>
     </ClCompile>
     <ClCompile Include="src\components\shooter_component.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\bullet.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\enemy_formation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\components\player_controller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\shield.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ship.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\components\shooter_component.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\types.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\bullet.h">
+      <Filter>Header Files\actors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enemy.h">
+      <Filter>Header Files\actors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\enemy_formation.h">
+      <Filter>Header Files\actors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\components\player_controller.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\components\shooter_component.h">
+      <Filter>Header Files\components</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ship.h">
+      <Filter>Header Files\actors</Filter>
+    </ClInclude>
+    <ClInclude Include="include\shield.h">
+      <Filter>Header Files\actors</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -75,6 +75,18 @@
     </Filter>
     <Filter Include="Resources">
       <UniqueIdentifier>{14ca2c6b-d730-4301-bc0b-ee41fddf5c06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\actors">
+      <UniqueIdentifier>{3712165f-4399-499c-83a6-efaabe8adcb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\components">
+      <UniqueIdentifier>{514e922f-bc9e-4e99-93d5-58f3cbc9b0d2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\actors">
+      <UniqueIdentifier>{dcef255e-5adf-4e99-8ab0-63b95fb0d77a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\components">
+      <UniqueIdentifier>{790c77e9-a6d4-49df-9bf2-d9f1f967ae4b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
