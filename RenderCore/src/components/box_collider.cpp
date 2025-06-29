@@ -7,7 +7,10 @@ box_collider::box_collider(const std::shared_ptr<actor>& owner) : collider{ owne
 
 auto box_collider::get_bounds() const -> glm::vec4
 {
-	const auto transform = get_owner()->get_transform();
+	const auto& owner = get_owner().lock();
+	if (!owner) { return {}; }
+
+	const auto transform = owner->get_transform();
 	const auto pos = transform->get_position();
 	const auto size = transform->get_scale(); // oppure sprite->size() se non è uniforme
 

@@ -39,8 +39,11 @@ void animation_renderer::render(const render_context& ctx)
 {
 	if (const auto sprite = current_sprite())
 	{
-		const auto& transform = get_owner()->get_transform();
-		sprite->render(ctx, *transform);
+		if (const auto owner = get_owner().lock(); owner)
+		{
+			const auto& transform = owner->get_transform();
+			sprite->render(ctx, *transform);
+		}
 	}
 }
 

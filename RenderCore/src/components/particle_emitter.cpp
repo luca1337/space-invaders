@@ -2,9 +2,16 @@
 #include <components/particle_emitter.h>
 #include <components/transform.h>
 
+#include <exception>
+
 particle_emitter::particle_emitter(const std::shared_ptr<actor>& owner, const config& cfg) : component{ owner }, m_config{ cfg }
 {
-	const auto& transform = get_owner()->get_transform();
+	if (!owner)
+	{
+		throw std::exception("Particle emitter must be attached to a valid actor.");
+	}
+
+	const auto& transform = owner->get_transform();
 	m_particle_system = std::make_unique<particle_system>(
 		transform->get_position(),
 		cfg.amount,

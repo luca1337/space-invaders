@@ -8,11 +8,14 @@
 #include <components/transform.h>
 #include <glm/glm.hpp>
 
-pixel_collider::pixel_collider(const std::shared_ptr<actor>& owner, const std::shared_ptr<sprite>& sprite) : collider(owner), m_sprite(sprite) { }
+pixel_collider::pixel_collider(const std::shared_ptr<actor>& owner, const std::shared_ptr<sprite>& sprite) : collider{ owner }, m_sprite{ sprite } {}
 
 auto pixel_collider::get_bounds() const -> glm::vec4
 {
-	const auto& transform = get_owner()->get_transform();
+	const auto owner = get_owner().lock();
+	if (!owner || !m_sprite) { return {}; }
+
+	const auto& transform = owner->get_transform();
 	const auto& pos = transform->get_position();
 	const auto& size = m_sprite->size();
 

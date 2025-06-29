@@ -46,7 +46,7 @@ public:
 		{
 			return std::dynamic_pointer_cast<T>(it->second);
 		}
-		return nullptr;
+		return {};
 	}
 
 	template <is_component T>
@@ -59,7 +59,7 @@ public:
 				return casted;
 			}
 		}
-		return nullptr;
+		return {};
 	}
 
 	template <is_component T>

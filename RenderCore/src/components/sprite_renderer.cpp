@@ -15,6 +15,9 @@ void sprite_renderer::render(const render_context& ctx)
 {
 	if (!m_sprite) { return; }
 
-	const auto& transform = get_owner()->get_transform();
-	m_sprite->render(ctx, *transform);
+	if (const auto& owner = get_owner().lock(); owner)
+	{
+		const auto& transform = owner->get_transform();
+		m_sprite->render(ctx, *transform);
+	}
 }

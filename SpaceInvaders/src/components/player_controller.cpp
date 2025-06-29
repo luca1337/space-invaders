@@ -16,14 +16,17 @@ void player_controller::update(const float delta_time)
 {
 	component::update(delta_time);
 
-	const auto& owner = get_owner();
+	const auto& owner = get_owner().lock();
+
+	if (!owner) { return; }
+
 	const auto& transform = owner->get_transform();
 	const auto& sr = owner->get_component<sprite_renderer>();
-	const auto& window = get_owner()->get_world().get_window();
+	const auto& window = owner->get_world().get_window();
 
 	if (!sr || !transform) { return; }
 
-	const glm::vec2& position = transform->get_local_position();
+	const auto& position = transform->get_local_position();
 	const float sprite_width = sr->sprite_raw()->size().x;
 	const float window_width = window->props().width;
 
