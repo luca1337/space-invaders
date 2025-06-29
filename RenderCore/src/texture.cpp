@@ -45,15 +45,14 @@ texture::texture(const std::string& file_path)
     }
 }
 
-texture::texture(const unsigned width, const unsigned height, const color color)
-    : m_width(width), m_height(height), m_pixel_data(width * height * 4)
+texture::texture(const unsigned width, const unsigned height, const color color) : m_width(width), m_height(height), m_pixel_data(width * height * 4)
 {
     for (unsigned i = 0; i < width * height; ++i)
     {
-        m_pixel_data[i * 4 + 0] = color.r;
-        m_pixel_data[i * 4 + 1] = color.g;
-        m_pixel_data[i * 4 + 2] = color.b;
-        m_pixel_data[i * 4 + 3] = color.a;
+        m_pixel_data[static_cast<std::vector<unsigned char, std::allocator<unsigned char>>::size_type>(i) * 4 + 0] = color.r;
+        m_pixel_data[static_cast<std::vector<unsigned char, std::allocator<unsigned char>>::size_type>(i) * 4 + 1] = color.g;
+        m_pixel_data[static_cast<std::vector<unsigned char, std::allocator<unsigned char>>::size_type>(i) * 4 + 2] = color.b;
+        m_pixel_data[static_cast<std::vector<unsigned char, std::allocator<unsigned char>>::size_type>(i) * 4 + 3] = color.a;
     }
 
     m_texture_id = utils::gl::generate_open_gl_texture(static_cast<GLsizei>(width), static_cast<GLsizei>(height), m_pixel_data.data(), GL_RGBA, GL_RGBA, GL_REPEAT, GL_REPEAT, true);

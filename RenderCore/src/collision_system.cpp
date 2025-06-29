@@ -69,7 +69,6 @@ auto collision_system::update_collisions(const world& w) -> void
 				}
 			}
 		}
-
 	}
 
 	// Collision exit
@@ -77,9 +76,9 @@ auto collision_system::update_collisions(const world& w) -> void
 	{
 		if (!current_collisions.contains(prev))
 		{
-			auto [a_ptr, b_ptr] = prev;
+			auto& [a_ptr, b_ptr] = prev;
 
-			hit_info info;
+			auto info = hit_info{};
 			info.other = b_ptr->shared_from_this();
 			if (auto* l = dynamic_cast<collision_listener*>(a_ptr))
 			{

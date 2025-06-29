@@ -3,10 +3,7 @@
 #include <components/pixel_collider.h>
 #include <components/transform.h>
 
-box_collider::box_collider(const std::shared_ptr<actor>& owner) : collider{ owner }
-{
-	
-}
+box_collider::box_collider(const std::shared_ptr<actor>& owner) : collider{ owner } { }
 
 auto box_collider::get_bounds() const -> glm::vec4
 {
@@ -34,7 +31,8 @@ auto box_collider::collides_with(const collider& other, glm::vec2& impact_point)
 
 	if (ax1 < bx2 && ax2 > bx1 && ay1 < by2 && ay2 > by1)
 	{
-		impact_point = {
+		impact_point = 
+		{
 			(ax1 + ax2) / 2.0f,
 			(ay1 + ay2) / 2.0f
 		};
