@@ -2,6 +2,8 @@
 
 #include <components/collider.h>
 
+class sprite;
+
 class box_collider final : public collider
 {
 public:
@@ -9,4 +11,7 @@ public:
 
 	auto get_bounds() const->glm::vec4 override;
 	auto collides_with(const collider& other, glm::vec2& impact_point) const -> bool override;
+
+private:
+	std::shared_ptr<sprite> m_sprite;
 };

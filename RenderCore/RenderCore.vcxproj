@@ -162,6 +162,7 @@
     <ClInclude Include="include\glad\glad.h" />
     <ClInclude Include="include\hit_info.h" />
     <ClInclude Include="include\input.h" />
+    <ClInclude Include="include\irenderable.h" />
     <ClInclude Include="include\iresource.h" />
     <ClInclude Include="include\KHR\khrplatform.h" />
     <ClInclude Include="include\logger.h" />
@@ -170,6 +171,7 @@
     <ClInclude Include="include\rendering\camera.h" />
     <ClInclude Include="include\rendering\particle_system.h" />
     <ClInclude Include="include\rendering\post_processing.h" />
+    <ClInclude Include="include\rendering\render_context.h" />
     <ClInclude Include="include\rendering\shader.h" />
     <ClInclude Include="include\resource.h" />
     <ClInclude Include="include\resource_manager.h" />

@@ -7,6 +7,9 @@
 #include <typeindex>
 #include <typeinfo>
 #include <unordered_map>
+#include <optional>
+
+#include <rendering/render_context.h>
 
 class world;
 class transform;
@@ -63,10 +66,7 @@ public:
 	}
 
 	template <is_component T>
-	bool has_component() const
-	{
-		return get_component<T>() != nullptr;
-	}
+	auto has_component() const { return get_component<T>() != nullptr; }
 
 	[[nodiscard]] auto& enabled() { return m_enabled; }
 	[[nodiscard]] const auto& enabled() const { return m_enabled; }

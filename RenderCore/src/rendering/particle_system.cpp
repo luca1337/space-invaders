@@ -7,6 +7,7 @@
 #include <rendering/camera.h>
 #include <rendering/particle_system.h>
 #include <rendering/shader.h>
+#include <rendering/render_context.h>
 
 auto direction_by_shape_type(const shape_type type) -> glm::vec2
 {

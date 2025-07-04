@@ -1,8 +1,11 @@
 #include <actor.h>
+#include <exception>
+#include <resource_manager.h>
+#include <world.h>
 #include <components/particle_emitter.h>
 #include <components/transform.h>
-
-#include <exception>
+#include <rendering/camera.h>
+#include <rendering/shader.h>
 
 particle_emitter::particle_emitter(const std::shared_ptr<actor>& owner, const config& cfg) : component{ owner }, m_config{ cfg }
 {
@@ -10,6 +13,10 @@ particle_emitter::particle_emitter(const std::shared_ptr<actor>& owner, const co
 	{
 		throw std::exception("Particle emitter must be attached to a valid actor.");
 	}
+
+	const auto& cam = owner->get_world().get_camera();
+	const auto& particle_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "ParticleShader" });
+	set_render_context({ .view = cam->get_view_matrix(), .projection = cam->get_projection_matrix(), .shader = particle_shader.value() });
 
 	const auto& transform = owner->get_transform();
 	m_particle_system = std::make_unique<particle_system>(
@@ -38,7 +45,7 @@ auto particle_emitter::update(const float delta_time) -> void
 	m_particle_system->update(delta_time);
 }
 
-auto particle_emitter::render(const render_context& ctx) const -> void
+auto particle_emitter::render(const render_context& ctx) -> void
 {
 	m_particle_system->render(ctx);
 }

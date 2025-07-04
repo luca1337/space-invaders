@@ -1,8 +1,9 @@
 #include <sprite.h>
 #include <texture.h>
-#include <components/transform.h>
 #include <utils.h>
+#include <components/transform.h>
 #include <glad/glad.h>
+#include <rendering/render_context.h>
 #include <rendering/shader.h>
 
 const auto quad_vertices = std::vector{
@@ -79,7 +80,16 @@ auto sprite::render(const render_context& ctx, const transform& tf) const -> voi
 
     glBindVertexArray(m_vao);
     glBindBuffer(GL_ARRAY_BUFFER, m_vbo);
+
+    glPolygonMode(GL_FRONT_AND_BACK, ctx.enable_debug ? GL_LINE : GL_FILL);
+
     glDrawArrays(GL_TRIANGLES, 0, 6);
+
+    if (ctx.enable_debug)
+    {
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+    }
+
     glBindVertexArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindTexture(GL_TEXTURE_2D, 0);

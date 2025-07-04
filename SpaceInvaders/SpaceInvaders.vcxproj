@@ -35,7 +35,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\RenderCore\resources\shaders\fragment_particle.glsl" />
     <None Include="..\RenderCore\resources\shaders\fragment_sprite.glsl" />
+    <None Include="..\RenderCore\resources\shaders\vertex_particle.glsl" />
     <None Include="..\RenderCore\resources\shaders\vertex_sprite.glsl" />
   </ItemGroup>
   <ItemGroup>

@@ -58,16 +58,16 @@ texture::texture(const unsigned width, const unsigned height, const color color)
     m_texture_id = utils::gl::generate_open_gl_texture(static_cast<GLsizei>(width), static_cast<GLsizei>(height), m_pixel_data.data(), GL_RGBA, GL_RGBA, GL_REPEAT, GL_REPEAT, true);
 }
 
-auto texture::get_pixel(const int x, const int y) const -> color
+auto texture::get_pixel(const int x, const int y) const -> const color&
 {
 	if (x < 0 || y < 0 || x >= static_cast<int>(m_width) || y >= static_cast<int>(m_height))
 	{
-		return color{ 0, 0, 0, 0 };
+        return {};
 	}
 
 	const int flipped_y = m_height - y - 1;
 	const size_t index = (flipped_y * m_width + x) * 4;
-	return color{ m_pixel_data[index + 0], m_pixel_data[index + 1], m_pixel_data[index + 2], m_pixel_data[index + 3] };
+	return { m_pixel_data[index + 0], m_pixel_data[index + 1], m_pixel_data[index + 2], m_pixel_data[index + 3] };
 }
 
 auto texture::set_pixel(const int x, const int y, const color& c) -> void

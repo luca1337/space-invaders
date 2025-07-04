@@ -6,7 +6,8 @@ enum class RENDER_API resource_type
 {
 	shader,
 	texture,
-	audio
+	audio,
+	render_ctx
 };
 
 enum class RENDER_API direction_type

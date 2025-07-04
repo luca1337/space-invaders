@@ -1,10 +1,20 @@
 #include <actor.h>
-#include <components/animation_renderer.h>
+#include <resource_manager.h>
 #include <sprite.h>
-#include <texture.h>
+#include <utility>
+#include <world.h>
+#include <components/animation_renderer.h>
 #include <components/transform.h>
+#include <rendering/camera.h>
+#include <rendering/render_context.h>
+#include <rendering/shader.h>
 
-animation_renderer::animation_renderer(const std::shared_ptr<actor>& owner) : component{ owner } {}
+animation_renderer::animation_renderer(const std::shared_ptr<actor>& owner) : component{ owner } 
+{
+	const auto& cam = owner->get_world().get_camera();
+	const auto& sprite_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "SpriteShader" });
+	set_render_context({ .view = cam->get_view_matrix(), .projection = cam->get_projection_matrix(), .shader = sprite_shader.value() });
+}
 
 void animation_renderer::update(const float delta_time)
 {
@@ -20,7 +30,7 @@ void animation_renderer::update(const float delta_time)
 		m_timer = 0.0f;
 		++m_current_frame;
 
-		if (m_current_frame >= static_cast<int>(frames.size()))
+		if (std::cmp_greater_equal(m_current_frame, frames.size()))
 		{
 			if (m_loop)
 			{

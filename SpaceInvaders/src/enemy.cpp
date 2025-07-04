@@ -1,14 +1,10 @@
 #include <enemy.h>
-
-#include <components/animation_renderer.h>
-#include <components/box_collider.h>
-#include <types.h>
 #include <logger.h>
-#include <components/pixel_collider.h>
 #include <resource_manager.h>
 #include <sprite.h>
-#include <world.h>
-#include <rendering/camera.h>
+#include <types.h>
+#include <components/animation_renderer.h>
+#include <components/pixel_collider.h>
 #include <rendering/shader.h>
 
 namespace
@@ -44,11 +40,11 @@ void enemy::build_enemy_frames_by_type()
 
 	switch (m_enemy_type)
 	{
-	case enemy_type::squid:   frames = &squid_frames; break;
-	case enemy_type::crab:    frames = &crab_frames; break;
-	case enemy_type::octopus: frames = &octopus_frames; break;
-	case enemy_type::ufo:     frames = &ufo_frames; break;
-	case enemy_type::none:    return;
+	case squid:   frames = &squid_frames; break;
+	case crab:    frames = &crab_frames; break;
+	case octopus: frames = &octopus_frames; break;
+	case ufo:     frames = &ufo_frames; break;
+	case none:    return;
 	default: break;
 	}
 
@@ -78,18 +74,6 @@ void enemy::start()
 void enemy::update(const float delta_time)
 {
 	actor::update(delta_time);
-
-	if (!m_animation_component) return;
-
-	const auto& cam = get_world().get_camera();
-
-	const auto sprite_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "SpriteShader" });
-
-	m_animation_component->render({
-		.view = cam->get_view_matrix(),
-		.projection = cam->get_projection_matrix(),
-		.shader = sprite_shader.value()
-		});
 }
 
 void enemy::on_collision_enter(const hit_info& hit)

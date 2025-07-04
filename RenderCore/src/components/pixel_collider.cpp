@@ -1,14 +1,26 @@
-#include <components/pixel_collider.h>
-
 #include <actor.h>
 #include <algorithm>
-#include <components/box_collider.h>
+#include <resource_manager.h>
 #include <sprite.h>
 #include <texture.h>
+#include <world.h>
+#include <components/pixel_collider.h>
 #include <components/transform.h>
 #include <glm/glm.hpp>
+#include <rendering/camera.h>
+#include <rendering/render_context.h>
+#include <rendering/shader.h>
 
-pixel_collider::pixel_collider(const std::shared_ptr<actor>& owner, const std::shared_ptr<sprite>& sprite) : collider{ owner }, m_sprite{ sprite } {}
+pixel_collider::pixel_collider(const std::shared_ptr<actor>& owner, const std::shared_ptr<sprite>& s) : collider{ owner }, m_sprite{ s }
+{
+	enable_debug() = true;
+
+	const auto& cam = owner->get_world().get_camera();
+	const auto& sprite_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "SpriteShader" });
+	set_render_context({ .view = cam->get_view_matrix(), .projection = cam->get_projection_matrix(), .shader = sprite_shader.value(), .enable_debug = true });
+
+	m_collider_sprite = std::make_shared<sprite>(m_sprite->sprite_texture()->get_width(), m_sprite->sprite_texture()->get_height(), green);
+}
 
 auto pixel_collider::get_bounds() const -> glm::vec4
 {
@@ -24,7 +36,7 @@ auto pixel_collider::get_bounds() const -> glm::vec4
 
 auto pixel_collider::collides_with(const collider& other, glm::vec2& impact_point) const -> bool
 {
-	const auto* other_pixel = dynamic_cast<const pixel_collider*>(&other);
+	const auto& other_pixel = dynamic_cast<const pixel_collider*>(&other);
 
 	if (!other_pixel) { return false; }
 
@@ -65,8 +77,8 @@ auto pixel_collider::collides_with(const collider& other, glm::vec2& impact_poin
 			if (ax < 0 || ay < 0 || ax >= tex_a_w || ay >= tex_a_h) continue;
 			if (bx < 0 || by < 0 || bx >= tex_b_w || by >= tex_b_h) continue;
 
-			const auto ca = tex_a->get_pixel(ax, ay);
-			const auto cb = tex_b->get_pixel(bx, by);
+			const auto& ca = tex_a->get_pixel(ax, ay);
+			const auto& cb = tex_b->get_pixel(bx, by);
 
 			if (ca.a > 0 && cb.a > 0)
 			{
@@ -77,4 +89,16 @@ auto pixel_collider::collides_with(const collider& other, glm::vec2& impact_poin
 	}
 
 	return false;
+}
+
+auto pixel_collider::render(const render_context& ctx) -> void
+{
+	if (!enable_debug()) { return; }
+
+	const auto& owner = get_owner().lock();
+
+	if (!owner) { return; }
+
+	const auto& transform = owner->get_transform();
+	m_collider_sprite->render(ctx, *transform);
 }

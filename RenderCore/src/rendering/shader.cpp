@@ -77,5 +77,5 @@ shader::shader(const std::string_view vertex, const std::string_view fragment)
     glDeleteShader(vertex_id);
     glDeleteShader(fragment_id);
 
-    //LOG_INFO("GLSL Shaders successfully compiled!");
+    LOG_INFO("GLSL Shaders successfully compiled!");
 }

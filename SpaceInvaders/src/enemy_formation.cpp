@@ -1,12 +1,10 @@
-﻿#include <enemy_formation.h>
-
-#include <components/animation_renderer.h>
-#include <components/transform.h>
+﻿#include <enemy.h>
+#include <enemy_formation.h>
 #include <window.h>
 #include <world.h>
+#include <components/animation_renderer.h>
+#include <components/transform.h>
 #include <glm/vec2.hpp>
-
-#include <enemy.h>
 
 enemy_formation::enemy_formation(world& w) : actor{ w }
 {

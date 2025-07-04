@@ -1,11 +1,12 @@
 #pragma once
 
 #include <components/component.h>
+#include <irenderable.h>
 #include <rendering/particle_system.h>
 #include <memory>
 #include <functional>
 
-class particle_emitter final : public component
+class particle_emitter final : public component, public irenderable
 {
 public:
 	struct config
@@ -25,7 +26,7 @@ public:
 
 	auto start() -> void override;
 	auto update(float delta_time) -> void override;
-	auto render(const render_context& ctx) const -> void;
+	auto render(const render_context& ctx) -> void override;
 
 	[[nodiscard]] const auto& get_emitter()  { return m_particle_system; }
 	[[nodiscard]] const auto& get_config() { return m_config; }

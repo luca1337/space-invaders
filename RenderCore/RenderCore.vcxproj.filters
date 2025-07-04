@@ -171,6 +171,12 @@
     <ClInclude Include="include\components\transform.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
+    <ClInclude Include="include\irenderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\rendering\render_context.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

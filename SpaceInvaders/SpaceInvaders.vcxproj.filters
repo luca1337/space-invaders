@@ -65,6 +65,12 @@
     <None Include="..\RenderCore\resources\shaders\fragment_sprite.glsl">
       <Filter>Resources</Filter>
     </None>
+    <None Include="..\RenderCore\resources\shaders\vertex_particle.glsl">
+      <Filter>Resources</Filter>
+    </None>
+    <None Include="..\RenderCore\resources\shaders\fragment_particle.glsl">
+      <Filter>Resources</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Header Files">

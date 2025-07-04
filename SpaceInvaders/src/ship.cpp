@@ -38,15 +38,6 @@ void ship::start()
 void ship::update(const float delta_time)
 {
 	actor::update(delta_time);
-
-	const auto& cam = get_world().get_camera();
-	const auto sprite_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "SpriteShader" });
-
-	m_sprite_component->render({
-		.view = cam->get_view_matrix(),
-		.projection = cam->get_projection_matrix(),
-		.shader = sprite_shader.value()
-		});
 }
 
 void ship::on_collision_stay(const hit_info& hit)

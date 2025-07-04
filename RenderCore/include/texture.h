@@ -20,7 +20,7 @@ public:
 	[[nodiscard]] auto get_height() const { return m_height; }
 
 	[[nodiscard]] auto get_pixels() const -> const std::vector<unsigned char>& { return m_pixel_data; }
-	[[nodiscard]] auto get_pixel(const int x, const int y) const->color;
+	[[nodiscard]] auto get_pixel(const int x, const int y) const -> const color&;
 
 	auto set_pixel(int x, int y, const color& c) -> void;
 	auto update_region(int x, int y, int width, int height) const -> void;

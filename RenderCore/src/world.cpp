@@ -29,7 +29,7 @@ auto world::update() const -> void
 
 		collision_system::update_collisions(*this);
 
-		});
+	});
 }
 
 auto world::add_actor(const std::shared_ptr<actor>& actor) -> void

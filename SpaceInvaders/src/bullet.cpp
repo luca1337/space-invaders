@@ -57,10 +57,6 @@ auto player_bullet::update(const float delta_time) -> void
 {
 	actor::update(delta_time);
 
-	const auto& cam = get_world().get_camera();
-
-	const auto sprite_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "SpriteShader" });
-
 	const auto& transform = get_transform();
 	auto pos = transform->get_position();
 
@@ -68,21 +64,7 @@ auto player_bullet::update(const float delta_time) -> void
 
 	transform->set_position(pos);
 
-	m_sprite_component->render({
-		.view = cam->get_view_matrix(),
-		.projection = cam->get_projection_matrix(),
-		.shader = sprite_shader.value()
-		});
-
-	const auto particle_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "ParticleShader" });
-
 	m_impact_fx->update(delta_time);
-
-	m_impact_fx->render({
-		.view = cam->get_view_matrix(),
-		.projection = cam->get_projection_matrix(),
-		.shader = particle_shader.value()
-		});
 }
 
 void player_bullet::on_collision_enter(const hit_info& hit)

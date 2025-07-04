@@ -1,6 +1,7 @@
 #pragma once
 
 #include <components/component.h>
+#include <irenderable.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -9,7 +10,7 @@
 struct render_context;
 class sprite;
 
-class animation_renderer final : public component
+class animation_renderer final : public component, public irenderable
 {
 public:
     struct animation_clip_frame
@@ -26,7 +27,7 @@ public:
     explicit animation_renderer(const std::shared_ptr<actor>& owner);
 
     auto update(float delta_time) -> void override;
-    auto render(const render_context& ctx) -> void;
+    auto render(const render_context& ctx) -> void override;
 
     auto set_animation(const std::string& name, const animation_clip& clip) -> void;
     auto play(const std::string& name, bool loop = true) -> void;

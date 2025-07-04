@@ -29,15 +29,6 @@ void shield::update(const float delta_time)
 {
 	actor::update(delta_time);
 
-	const auto& cam = get_world().get_camera();
-
-	const auto sprite_shader = resource_manager::get_from_cache<shader>({ .m_resource_type = resource_type::shader, .m_name = "SpriteShader" });
-
-	m_sprite_component->render({
-		.view = cam->get_view_matrix(),
-		.projection = cam->get_projection_matrix(),
-		.shader = sprite_shader.value()
-		});
 }
 
 auto shield::on_collision_enter(const hit_info& hit) -> void
@@ -50,7 +41,7 @@ auto shield::take_damage(const glm::vec2& impact_point) const -> void
 	const auto& transform = get_transform();
 	const auto& sprite = m_sprite_component->sprite_raw();
 
-	const auto local = impact_point - transform->get_local_position();
+	const auto& local = impact_point - transform->get_local_position();
 	const auto uv = local / sprite->size();
 
 	const auto& tex = sprite->sprite_texture();
