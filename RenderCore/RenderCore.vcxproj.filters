@@ -4,177 +4,177 @@
     <ClCompile Include="src\glad.c">
       <Filter>Header Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\actor.cpp">
+    <ClCompile Include="src\Actor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\camera.cpp">
+    <ClCompile Include="src\rendering\Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\collision_system.cpp">
+    <ClCompile Include="src\CollisionSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\input.cpp">
+    <ClCompile Include="src\Input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\logger.cpp">
+    <ClCompile Include="src\Logger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\particle_system.cpp">
+    <ClCompile Include="src\rendering\ParticleSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\post_processing.cpp">
+    <ClCompile Include="src\rendering\PostProcessing.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\random.cpp">
+    <ClCompile Include="src\Random.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\resource_manager.cpp">
+    <ClCompile Include="src\ResourceManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\rendering\shader.cpp">
+    <ClCompile Include="src\rendering\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\sprite.cpp">
+    <ClCompile Include="src\Sprite.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\texture.cpp">
+    <ClCompile Include="src\Texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\window.cpp">
+    <ClCompile Include="src\Window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\world.cpp">
+    <ClCompile Include="src\World.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\animation_renderer.cpp">
+    <ClCompile Include="src\components\AnimationRenderer.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\box_collider.cpp">
+    <ClCompile Include="src\components\BoxCollider.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\component.cpp">
+    <ClCompile Include="src\components\Component.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\particle_emitter.cpp">
+    <ClCompile Include="src\components\ParticleEmitter.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\sprite_renderer.cpp">
+    <ClCompile Include="src\components\SpriteRenderer.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\transform.cpp">
+    <ClCompile Include="src\components\Transform.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\components\pixel_collider.cpp">
+    <ClCompile Include="src\components\PixelCollider.cpp">
       <Filter>Source Files\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\actor.h">
+    <ClInclude Include="include\Actor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rendering\camera.h">
+    <ClInclude Include="include\rendering\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\collision_listener.h">
+    <ClInclude Include="include\CollisionListener.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\collision_system.h">
+    <ClInclude Include="include\CollisionSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\color.h">
+    <ClInclude Include="include\Color.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\enums.h">
+    <ClInclude Include="include\Enums.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\export.h">
+    <ClInclude Include="include\Export.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\glad\glad.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\hit_info.h">
+    <ClInclude Include="include\HitInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\input.h">
+    <ClInclude Include="include\Input.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\iresource.h">
+    <ClInclude Include="include\IResource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\logger.h">
+    <ClInclude Include="include\Logger.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rendering\particle_system.h">
+    <ClInclude Include="include\rendering\ParticleSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rendering\post_processing.h">
+    <ClInclude Include="include\rendering\PostProcessing.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\random.h">
+    <ClInclude Include="include\Random.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ray.h">
+    <ClInclude Include="include\Ray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\resource.h">
+    <ClInclude Include="include\Resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\resource_manager.h">
+    <ClInclude Include="include\ResourceManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rendering\shader.h">
+    <ClInclude Include="include\rendering\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\sprite.h">
+    <ClInclude Include="include\Sprite.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\texture.h">
+    <ClInclude Include="include\Texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\utils.h">
+    <ClInclude Include="include\Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\window.h">
+    <ClInclude Include="include\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\world.h">
+    <ClInclude Include="include\World.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\KHR\khrplatform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\animation_renderer.h">
+    <ClInclude Include="include\components\AnimationRenderer.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\collider.h">
+    <ClInclude Include="include\components\Collider.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\component.h">
+    <ClInclude Include="include\components\Component.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\particle_emitter.h">
+    <ClInclude Include="include\components\ParticleEmitter.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\sprite_renderer.h">
+    <ClInclude Include="include\components\SpriteRenderer.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\box_collider.h">
+    <ClInclude Include="include\components\BoxCollider.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\pixel_collider.h">
+    <ClInclude Include="include\components\PixelCollider.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\components\transform.h">
+    <ClInclude Include="include\components\Transform.h">
       <Filter>Header Files\components</Filter>
     </ClInclude>
-    <ClInclude Include="include\irenderable.h">
+    <ClInclude Include="include\IRenderable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\rendering\render_context.h">
+    <ClInclude Include="include\rendering\RenderContext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

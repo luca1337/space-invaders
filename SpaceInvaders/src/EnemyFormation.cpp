@@ -1,12 +1,12 @@
-﻿#include <enemy.h>
-#include <enemy_formation.h>
-#include <window.h>
-#include <world.h>
-#include <components/animation_renderer.h>
-#include <components/transform.h>
+﻿#include <Enemy.h>
+#include <EnemyFormation.h>
+#include <Window.h>
+#include <World.h>
+#include <components/AnimationRenderer.h>
+#include <components/Transform.h>
 #include <glm/vec2.hpp>
 
-enemy_formation::enemy_formation(world& w) : actor{ w }
+EnemyFormation::EnemyFormation(World& w) : Actor{ w }
 {
 	constexpr int rows = 5;
 	constexpr int cols = 11;
@@ -18,26 +18,26 @@ enemy_formation::enemy_formation(world& w) : actor{ w }
 
 	for (auto row = 0ul; row != rows; ++row)
 	{
-		auto type = enemy_type{};
+		auto type = EnemyType{};
 
-		if (row == 0) { type = enemy_type::squid; }
-		else if (row <= 2) { type = enemy_type::crab; }
-		else { type = enemy_type::octopus; }
+		if (row == 0) { type = EnemyType::squid; }
+		else if (row <= 2) { type = EnemyType::crab; }
+		else { type = EnemyType::octopus; }
 
-		auto group = enemy_group{ .type = type };
+		auto group = EnemyGroup{ .type = type };
 
 		for (auto col = 0ul; col != cols; ++col)
 		{
 			constexpr float start_y = 100.0f;
 			constexpr float spacing_y = 40.0f;
 
-			auto en = std::make_shared<enemy>(get_world(), type);
+			auto en = std::make_shared<Enemy>(get_world(), type);
 			en->start();
 
-			const auto& anim_rend = en->get_component<animation_renderer>();
+			const auto& anim_rend = en->get_component<AnimationRenderer>();
 			anim_rend->stop();
 
-			const auto& enemy_transform = en->get_transform();
+			const auto& enemy_transform = en->transform();
 			enemy_transform->set_position(glm::vec2{ start_x + col * spacing_x,start_y + row * spacing_y });
 
 			get_world().add_actor(en);
@@ -49,11 +49,11 @@ enemy_formation::enemy_formation(world& w) : actor{ w }
 	}
 }
 
-void enemy_formation::start()
+void EnemyFormation::start()
 {
-	actor::start();
+	Actor::start();
 }
 
-void enemy_formation::update(float delta_time)
+void EnemyFormation::update(float delta_time)
 {
 }

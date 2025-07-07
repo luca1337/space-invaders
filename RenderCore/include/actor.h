@@ -2,28 +2,26 @@
 
 #include <concepts>
 #include <memory>
+#include <optional>
 #include <ranges>
 #include <string>
 #include <typeindex>
 #include <typeinfo>
 #include <unordered_map>
-#include <optional>
 
-#include <rendering/render_context.h>
-
-class world;
-class transform;
-class component;
+class World;
+class Transform;
+class Component;
 
 template <typename T>
-concept is_component = std::derived_from<T, component>;
+concept is_component = std::derived_from<T, Component>;
 
-class actor : public std::enable_shared_from_this<actor>
+class Actor : public std::enable_shared_from_this<Actor>
 {
 public:
-	virtual ~actor() = default;
-	explicit actor(world& w) : m_world{ w } {}
-	explicit actor(world& w, std::string name);
+	virtual ~Actor() = default;
+	explicit Actor(World& w) : m_world{ w } {}
+	explicit Actor(World& w, std::string name);
 
 	virtual auto start() -> void;
 	virtual auto update(float delta_time) -> void;
@@ -71,8 +69,8 @@ public:
 	[[nodiscard]] auto& enabled() { return m_enabled; }
 	[[nodiscard]] const auto& enabled() const { return m_enabled; }
 
-	[[nodiscard]] auto& get_transform() { return m_transform; }
-	[[nodiscard]] const auto& get_transform() const { return m_transform; }
+	[[nodiscard]] auto& transform() { return m_transform; }
+	[[nodiscard]] const auto& transform() const { return m_transform; }
 
 	[[nodiscard]] const auto& get_name() const { return m_name; }
 
@@ -80,9 +78,9 @@ public:
 	[[nodiscard]] auto& get_world() { return m_world; }
 
 private:
-	world& m_world;
+	World& m_world;
 	std::string m_name = "default";
-	std::unordered_map<std::type_index, std::shared_ptr<component>> m_components;
-	std::shared_ptr<transform> m_transform = {};
+	std::unordered_map<std::type_index, std::shared_ptr<Component>> m_components;
+	std::shared_ptr<Transform> m_transform = {};
 	bool m_enabled = true;
 };

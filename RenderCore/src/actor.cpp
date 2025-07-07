@@ -1,24 +1,33 @@
-#include <actor.h>
-#include <irenderable.h>
+#include <Actor.h>
+#include <IRenderable.h>
 #include <ranges>
-#include <components/transform.h>
+#include <components/Transform.h>
 
-actor::actor(world& w, std::string name) : m_world{ w }, m_name{ std::move(name) } {}
+Actor::Actor(World& w, std::string name) : m_world{ w }, m_name{ std::move(name) } {}
 
-auto actor::start() -> void
+auto Actor::start() -> void
 {
-	m_transform = add_component<transform>();
+	m_transform = add_component<Transform>();
 }
 
-auto actor::update(const float delta_time) -> void
+auto Actor::update(const float delta_time) -> void
 {
 	for (const auto& comp : m_components | std::views::values)
 	{
+		if (!comp->enabled())
+		{
+			continue;
+		}
+
 		comp->update(delta_time);
 
-		if (const auto& renderable_component = std::dynamic_pointer_cast<irenderable>(comp))
+		if (const auto& renderable_component = std::dynamic_pointer_cast<IRenderable>(comp))
 		{
-			renderable_component->render(comp->get_render_context().value());
+			if (auto& render_context = comp->render_context())
+			{
+				render_context->enable_debug = comp->debug();
+				renderable_component->render(render_context.value());
+			}
 		}
 	}
 }

@@ -1,39 +1,39 @@
 #pragma once
 
-#include <components/component.h>
-#include <irenderable.h>
+#include <components/Component.h>
+#include <IRenderable.h>
 #include <memory>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-struct render_context;
-class sprite;
+struct RenderContext;
+class Sprite;
 
-class animation_renderer final : public component, public irenderable
+class AnimationRenderer final : public Component, public IRenderable
 {
 public:
     struct animation_clip_frame
     {
-        std::shared_ptr<sprite> frame_sprite;
+		std::shared_ptr<Sprite> frame_sprite = {};
         float duration = 0.1f;
     };
 
     struct animation_clip
     {
-        std::vector<animation_clip_frame> frames;
+        std::vector<animation_clip_frame> frames = {};
     };
 
-    explicit animation_renderer(const std::shared_ptr<actor>& owner);
+    explicit AnimationRenderer(const std::shared_ptr<Actor>& owner);
 
     auto update(float delta_time) -> void override;
-    auto render(const render_context& ctx) -> void override;
+    auto render(const RenderContext& ctx) -> void override;
 
     auto set_animation(const std::string& name, const animation_clip& clip) -> void;
     auto play(const std::string& name, bool loop = true) -> void;
     auto stop() -> void;
 
-    [[nodiscard]] auto current_sprite() const -> std::shared_ptr<sprite>;
+    [[nodiscard]] auto current_sprite() const -> std::shared_ptr<Sprite>;
 
 private:
     std::unordered_map<std::string, animation_clip> m_animations = {};

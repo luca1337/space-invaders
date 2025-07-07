@@ -1,29 +1,29 @@
 #pragma once
 
-#include <actor.h>
+#include <Actor.h>
 
-#include <collision_listener.h>
-#include <types.h>
+#include <CollisionListener.h>
+#include <Types.h>
 
-class animation_renderer;
-class game;
+class AnimationRenderer;
+class Game;
 
-class enemy final : public actor, public collision_listener
+class Enemy final : public Actor, public CollisionListener
 {
 public:
-	~enemy() override = default;
-	explicit enemy(world& w, const enemy_type& type);
+	~Enemy() override = default;
+	explicit Enemy(World& world, const EnemyType& type);
 
 	auto start() -> void override;
 	auto update(float delta_time) -> void override;
 
-	auto on_collision_enter(const hit_info& hit) -> void override;
+	auto on_collision_enter(const HitInfo& hit) -> void override;
 
-	[[nodiscard]] auto get_type() const -> enemy_type { return m_enemy_type; }
+	[[nodiscard]] auto get_type() const -> EnemyType { return m_enemy_type; }
 
 private:
-	enemy_type m_enemy_type = enemy_type::none;
-	std::shared_ptr<animation_renderer> m_animation_component = {};
+	EnemyType m_enemy_type = EnemyType::none;
+	std::shared_ptr<AnimationRenderer> m_animation_component = {};
 
 	auto build_enemy_frames_by_type() -> void;
 };

@@ -1,8 +1,8 @@
 #pragma once
 
-#include <export.h>
+#include <Export.h>
 
-enum class RENDER_API resource_type
+enum class RENDER_API ResourceType
 {
 	shader,
 	texture,
@@ -10,14 +10,14 @@ enum class RENDER_API resource_type
 	render_ctx
 };
 
-enum class RENDER_API direction_type
+enum class RENDER_API DirectionType
 {
 	left,
 	right,
 	down
 };
 
-enum class RENDER_API shape_type
+enum class RENDER_API ShapeType
 {
 	none,
 	circle,

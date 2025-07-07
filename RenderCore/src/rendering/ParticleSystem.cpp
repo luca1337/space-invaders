@@ -1,34 +1,34 @@
-#include <enums.h>
-#include <logger.h>
-#include <random.h>
-#include <sprite.h>
-#include <texture.h>
-#include <utils.h>
-#include <rendering/camera.h>
-#include <rendering/particle_system.h>
-#include <rendering/shader.h>
-#include <rendering/render_context.h>
+#include <Enums.h>
+#include <Logger.h>
+#include <Random.h>
+#include <Sprite.h>
+#include <Texture.h>
+#include <Utils.h>
+#include <rendering/Camera.h>
+#include <rendering/ParticleSystem.h>
+#include <rendering/Shader.h>
+#include <rendering/RenderContext.h>
 
-auto direction_by_shape_type(const shape_type type) -> glm::vec2
+auto direction_by_shape_type(const ShapeType type) -> glm::vec2
 {
 	auto direction = glm::vec2{};
 
 	switch (type)
 	{
-	case shape_type::half_circle:
+	case ShapeType::half_circle:
 	{
-		const auto random_angle = rng::generate_random_number<float>(-glm::pi<float>(), 2 * glm::pi<float>());
+		const auto random_angle = Rng::generate_random_number<float>(-glm::pi<float>(), 2 * glm::pi<float>());
 		direction = { glm::cos(random_angle), glm::sin(random_angle) };
 	}
 	break;
-	case shape_type::circle:
+	case ShapeType::circle:
 	{
-		const auto random_angle = rng::generate_random_number<float>(0.0f, 2 * glm::pi<float>());
+		const auto random_angle = Rng::generate_random_number<float>(0.0f, 2 * glm::pi<float>());
 		direction = { glm::cos(random_angle), glm::sin(random_angle) };
 	}
 	break;
-	case shape_type::none:
-		direction = { rng::generate_random_number(-1.0f, 1.0f), rng::generate_random_number(-1.0f, 1.0f) };
+	case ShapeType::none:
+		direction = { Rng::generate_random_number(-1.0f, 1.0f), Rng::generate_random_number(-1.0f, 1.0f) };
 		break;
 	default:
 		break;
@@ -37,8 +37,8 @@ auto direction_by_shape_type(const shape_type type) -> glm::vec2
 	return direction;
 }
 
-particle_system::particle_system(const glm::vec2 position, const unsigned amount, const float min_speed, const float max_speed, const float min_life_time, const float max_life_time)
-	: m_position{ position }, m_start_pos{ position }, m_shape_type{ shape_type::circle },
+ParticleSystem::ParticleSystem(const glm::vec2 position, const unsigned amount, const float min_speed, const float max_speed, const float min_life_time, const float max_life_time)
+	: m_position{ position }, m_start_pos{ position }, m_shape_type{ ShapeType::circle },
 	m_min_speed{ min_speed }, m_max_speed{ max_speed }, m_min_life_time{ min_life_time }, m_max_life_time{ max_life_time }, m_amount{ amount }
 {
 	m_particles.resize(amount);
@@ -46,7 +46,7 @@ particle_system::particle_system(const glm::vec2 position, const unsigned amount
 	generate_buffers();
 }
 
-auto particle_system::reset() -> void
+auto ParticleSystem::reset() -> void
 {
 	m_emission_timer = 0.f;
 	m_active_particles.clear();
@@ -55,12 +55,12 @@ auto particle_system::reset() -> void
 	{
 		position = m_start_pos;
 		velocity = direction_by_shape_type(m_shape_type);
-		speed = rng::generate_random_number(m_min_speed, m_max_speed);
-		life_time = rng::generate_random_number(m_min_life_time, m_max_life_time);
+		speed = Rng::generate_random_number(m_min_speed, m_max_speed);
+		life_time = Rng::generate_random_number(m_min_life_time, m_max_life_time);
 		color = glm::vec4{
-			rng::generate_random_number(0.3f, 1.0f),
-			rng::generate_random_number(0.3f, 1.0f),
-			rng::generate_random_number(0.3f, 1.0f),
+			Rng::generate_random_number(0.3f, 1.0f),
+			Rng::generate_random_number(0.3f, 1.0f),
+			Rng::generate_random_number(0.3f, 1.0f),
 			1.0f
 		};
 		is_active = false;
@@ -70,25 +70,25 @@ auto particle_system::reset() -> void
 	update_instance_buffer(m_particles);
 }
 
-auto particle_system::set_emission_time_interval(const float interval) -> void
+auto ParticleSystem::set_emission_time_interval(const float interval) -> void
 {
 	constexpr auto min_emission_interval = 0.004f;
 	m_emission_interval = glm::max(min_emission_interval, interval);
 }
 
-auto particle_system::randomize_particles_position_between_bounds(const float x_min, const float x_max, const float y_min, const float y_max) -> void
+auto ParticleSystem::randomize_particles_position_between_bounds(const float x_min, const float x_max, const float y_min, const float y_max) -> void
 {
 	for (auto& p : m_particles)
 	{
-		const auto new_x = m_start_pos.x + rng::generate_random_number(x_min, x_max);
-		const auto new_y = m_start_pos.y + rng::generate_random_number(y_min, y_max);
+		const auto new_x = m_start_pos.x + Rng::generate_random_number(x_min, x_max);
+		const auto new_y = m_start_pos.y + Rng::generate_random_number(y_min, y_max);
 		p.position = glm::vec2{ new_x, new_y };
 	}
 
 	update_instance_buffer(m_particles);
 }
 
-auto particle_system::set_position(const glm::vec2& position) -> void
+auto ParticleSystem::set_position(const glm::vec2& position) -> void
 {
 	m_start_pos = position;
 
@@ -100,7 +100,7 @@ auto particle_system::set_position(const glm::vec2& position) -> void
 	update_instance_buffer(m_particles);
 }
 
-auto particle_system::update(float delta_time) -> void
+auto ParticleSystem::update(float delta_time) -> void
 {
 	if (!m_is_emitting) { return; }
 
@@ -135,7 +135,7 @@ auto particle_system::update(float delta_time) -> void
 	}
 }
 
-auto particle_system::render(const render_context& ctx) const -> void
+auto ParticleSystem::render(const RenderContext& ctx) const -> void
 {
 	if (!m_is_emitting) { return; }
 
@@ -160,9 +160,9 @@ auto particle_system::render(const render_context& ctx) const -> void
 	ctx.shader->unbind();
 }
 
-auto particle_system::generate_buffers() -> void
+auto ParticleSystem::generate_buffers() -> void
 {
-	m_texture = std::make_shared<texture>(30, 30, color{ .r = 255, .g = 0, .b = 0, .a = 30 });
+	m_texture = std::make_shared<Texture>(30, 30, Color{ .r = 255, .g = 0, .b = 0, .a = 30 });
 
 	glGenVertexArrays(1, &m_quad_vao);
 	glGenBuffers(1, &m_quad_vbo);
@@ -198,24 +198,24 @@ auto particle_system::generate_buffers() -> void
 	glBindVertexArray(0);
 }
 
-auto particle_system::initialize_particles() -> void
+auto ParticleSystem::initialize_particles() -> void
 {
 	for (auto& [position, scale, color, velocity, speed, life_time, rotation, is_active, should_expire] : m_particles)
 	{
 		position = m_start_pos;
 		velocity = direction_by_shape_type(m_shape_type);
-		speed = rng::generate_random_number(m_min_speed, m_max_speed);
-		life_time = rng::generate_random_number(m_min_life_time, m_max_life_time);
+		speed = Rng::generate_random_number(m_min_speed, m_max_speed);
+		life_time = Rng::generate_random_number(m_min_life_time, m_max_life_time);
 		color = glm::vec4{
-			rng::generate_random_number(0.3f, 1.0f),
-			rng::generate_random_number(0.3f, 1.0f),
-			rng::generate_random_number(0.3f, 1.0f),
+			Rng::generate_random_number(0.3f, 1.0f),
+			Rng::generate_random_number(0.3f, 1.0f),
+			Rng::generate_random_number(0.3f, 1.0f),
 			1.0f
 		};
 	}
 }
 
-auto particle_system::activate_or_create_particle() -> void
+auto ParticleSystem::activate_or_create_particle() -> void
 {
 	for (auto& p : m_particles)
 	{
@@ -229,12 +229,12 @@ auto particle_system::activate_or_create_particle() -> void
 
 	if (m_should_expire) { return; }
 
-	auto p = particle{};
+	auto p = Particle{};
 	p.is_active = true;
-	p.life_time = rng::generate_random_number(m_min_life_time, m_max_life_time);
+	p.life_time = Rng::generate_random_number(m_min_life_time, m_max_life_time);
 	p.position = m_start_pos;
 	p.velocity = direction_by_shape_type(m_shape_type);
-	p.speed = rng::generate_random_number(m_min_speed, m_max_speed);
+	p.speed = Rng::generate_random_number(m_min_speed, m_max_speed);
 
 	m_particles.push_back(p);
 
@@ -242,14 +242,14 @@ auto particle_system::activate_or_create_particle() -> void
 }
 
 template <typename T, typename F>
-auto transform_particles(const std::vector<particle>& particles,const F& transform_func)
+auto transform_particles(const std::vector<Particle>& particles,const F& transform_func)
 {
 	std::vector<T> results(particles.size());
 	std::transform(particles.begin(), particles.end(), results.begin(), transform_func);
 	return results;
 }
 
-auto particle_system::update_instance_buffer(const std::vector<particle>& particles) const -> void
+auto ParticleSystem::update_instance_buffer(const std::vector<Particle>& particles) const -> void
 {
 	const auto model_matrices = transform_particles<glm::mat4>(particles, [](const auto& p)
 		{

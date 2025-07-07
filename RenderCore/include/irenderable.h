@@ -1,10 +1,10 @@
 #pragma once
 
-struct render_context;
+struct RenderContext;
 
-class irenderable
+class IRenderable
 {
 public:
-	virtual auto render(const render_context& ctx) -> void = 0;
-	virtual ~irenderable() = default;
+	virtual auto render(const RenderContext& ctx) -> void = 0;
+	virtual ~IRenderable() = default;
 };

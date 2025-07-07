@@ -1,9 +1,9 @@
 #include <iostream>
-#include <logger.h>
-#include <window.h>
-#include <rendering/post_processing.h>
+#include <Logger.h>
+#include <Window.h>
+#include <rendering/PostProcessing.h>
 
-window::window(const unsigned width, const unsigned height, const unsigned depth, const unsigned major_version, const unsigned minor_version) : m_props{ .width = width, .height = height }
+Window::Window(const unsigned width, const unsigned height, const unsigned depth, const unsigned major_version, const unsigned minor_version) : m_props{ .width = width, .height = height }
 {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, major_version);
@@ -50,14 +50,14 @@ window::window(const unsigned width, const unsigned height, const unsigned depth
 
 	m_keys = reinterpret_cast<const unsigned char*>(SDL_GetKeyboardState(nullptr));
 
-	m_post_processing = std::make_shared<post_processing>(*this);
+	m_post_processing = std::make_shared<PostProcessing>(*this);
 
 	m_is_open = true;
 
-	logger::init();
+	Logger::init();
 }
 
-auto window::update(const std::function<void(float)>& render_hook, const std::function<void(float)>& render_gui_hook) -> void
+auto Window::update(const std::function<void(float)>& render_hook, const std::function<void(float)>& render_gui_hook) -> void
 {
 	auto prev_time = SDL_GetPerformanceCounter();
 
@@ -99,7 +99,7 @@ auto window::update(const std::function<void(float)>& render_hook, const std::fu
 	}
 }
 
-auto window::close_window() -> void
+auto Window::close_window() -> void
 {
 	if (m_sdl_window_handle)
 	{
@@ -111,7 +111,7 @@ auto window::close_window() -> void
 	m_is_open = false;
 }
 
-auto window::render_scene_without_post_processing(const std::function<void(float)>& render_hook) const -> void
+auto Window::render_scene_without_post_processing(const std::function<void(float)>& render_hook) const -> void
 {
 	glViewport(0, 0, static_cast<GLsizei>(m_props.width), static_cast<GLsizei>(m_props.height));
 

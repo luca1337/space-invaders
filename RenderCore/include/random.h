@@ -3,9 +3,9 @@
 #include <random>
 #include <algorithm>
 
-#include <export.h>
+#include <Export.h>
 
-class RENDER_API rng
+class RENDER_API Rng
 {
 public:
     template <typename Type>

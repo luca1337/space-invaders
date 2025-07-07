@@ -2,16 +2,16 @@
 
 #include <glm/vec3.hpp>
 
-class ray
+class Ray
 {
 public:
-    ~ray() = default;
-    ray() = default;
-    ray(const glm::vec3& origin, const glm::vec3& direction) : m_origin{origin}, m_direction{direction} {}
-    ray(const ray&) = default;
-    ray(ray&&) = default;
-    ray& operator=(const ray&) = default;
-    ray& operator=(ray&&) = default;
+    ~Ray() = default;
+    Ray() = default;
+    Ray(const glm::vec3& origin, const glm::vec3& direction) : m_origin{origin}, m_direction{direction} {}
+    Ray(const Ray&) = default;
+    Ray(Ray&&) = default;
+    Ray& operator=(const Ray&) = default;
+    Ray& operator=(Ray&&) = default;
 
     [[nodiscard]] auto origin() const -> glm::vec3 { return m_origin;}
     [[nodiscard]] auto direction() const -> glm::vec3 { return m_direction; }

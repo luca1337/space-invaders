@@ -3,7 +3,7 @@
 #include <memory>
 #include <spdlog/spdlog.h>
 
-class logger
+class Logger
 {
 public:
     static void init();
@@ -12,9 +12,9 @@ private:
     static std::shared_ptr<spdlog::logger> m_logger;
 };
 
-#define LOG_TRACE(...)		logger::get_logger()->trace(__VA_ARGS__)
-#define LOG_INFO(...)		logger::get_logger()->info(__VA_ARGS__)
-#define LOG_WARN(...)		logger::get_logger()->warn(__VA_ARGS__)
-#define LOG_ERROR(...)		logger::get_logger()->error(__VA_ARGS__)
-#define LOG_CRITICAL(...)	logger::get_logger()->critical(__VA_ARGS__)
-#define LOG_DEBUG(...)		logger::get_logger()->debug(__VA_ARGS__)
+#define LOG_TRACE(...)		Logger::get_logger()->trace(__VA_ARGS__)
+#define LOG_INFO(...)		Logger::get_logger()->info(__VA_ARGS__)
+#define LOG_WARN(...)		Logger::get_logger()->warn(__VA_ARGS__)
+#define LOG_ERROR(...)		Logger::get_logger()->error(__VA_ARGS__)
+#define LOG_CRITICAL(...)	Logger::get_logger()->critical(__VA_ARGS__)
+#define LOG_DEBUG(...)		Logger::get_logger()->debug(__VA_ARGS__)

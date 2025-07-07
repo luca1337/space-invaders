@@ -1,6 +1,6 @@
 #pragma once
 
-#include <logger.h>
+#include <Logger.h>
 
 #include <vector>
 #include <glad/glad.h>

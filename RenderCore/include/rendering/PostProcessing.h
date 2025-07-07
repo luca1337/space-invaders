@@ -1,17 +1,17 @@
 #pragma once
 
-#include <window.h>
+#include <Window.h>
 
 #include <functional>
 #include <memory>
 
-#include <rendering/shader.h>
+#include <rendering/Shader.h>
 
-class RENDER_API post_processing
+class RENDER_API PostProcessing
 {
 public:
-    virtual ~post_processing() = default;
-    explicit post_processing(const window& window);
+    virtual ~PostProcessing() = default;
+    explicit PostProcessing(const Window& window);
 
     virtual auto render_to_scene(const float delta_time, const std::function<void()>& render_scene_hook, const std::function<void()>& render_gui_hook = nullptr) -> void
     {
@@ -44,7 +44,7 @@ public:
     }
 
 protected:
-    const window& m_Window;
+    const Window& m_Window;
     GLuint m_vao, m_vbo, m_fbo, m_texture_color_buffer;
-    std::shared_ptr<shader> m_pp_shader = {};
+    std::shared_ptr<Shader> m_pp_shader = {};
 };

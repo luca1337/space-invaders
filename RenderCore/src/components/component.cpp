@@ -1,1 +1,1 @@
-#include <components/component.h>
+#include <components/Component.h>

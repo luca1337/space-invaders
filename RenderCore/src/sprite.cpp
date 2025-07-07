@@ -1,10 +1,10 @@
-#include <sprite.h>
-#include <texture.h>
-#include <utils.h>
-#include <components/transform.h>
+#include <Sprite.h>
+#include <Texture.h>
+#include <Utils.h>
+#include <components/Transform.h>
 #include <glad/glad.h>
-#include <rendering/render_context.h>
-#include <rendering/shader.h>
+#include <rendering/RenderContext.h>
+#include <rendering/Shader.h>
 
 const auto quad_vertices = std::vector{
     0.0f, 1.0f,       0.0f, 1.0f,
@@ -16,20 +16,20 @@ const auto quad_vertices = std::vector{
     1.0f, 1.0f,       1.0f, 1.0f
 };
 
-sprite::~sprite()
+Sprite::~Sprite()
 {
     glDeleteVertexArrays(1, &m_vao);
     glDeleteBuffers(1, &m_vbo);
 }
 
-sprite::sprite()
+Sprite::Sprite()
 {
     utils::gl::generate_vertex_buffer(m_vao, m_vbo, quad_vertices);
     utils::gl::upload_vertex_attribute(0, 2, 4 * sizeof(float), 0, nullptr);
     utils::gl::upload_vertex_attribute(1, 2, 4 * sizeof(float), 1, reinterpret_cast<void*>(2 * sizeof(float)));
 }
 
-sprite::sprite(const sprite& other)
+Sprite::Sprite(const Sprite& other)
 {
     utils::gl::generate_vertex_buffer(m_vao, m_vbo, quad_vertices);
     utils::gl::upload_vertex_attribute(0, 2, 4 * sizeof(float), 0, nullptr);
@@ -39,27 +39,27 @@ sprite::sprite(const sprite& other)
     m_size = other.m_size;
 }
 
-sprite::sprite(const std::string& texture_path)
+Sprite::Sprite(const std::string& texture_path)
 {
 	utils::gl::generate_vertex_buffer(m_vao, m_vbo, quad_vertices);
 	utils::gl::upload_vertex_attribute(0, 2, 4 * sizeof(float), 0, nullptr);
 	utils::gl::upload_vertex_attribute(1, 2, 4 * sizeof(float), 1, reinterpret_cast<void*>(2 * sizeof(float)));
 
-	m_texture = std::make_shared<texture>(texture_path);
+	m_texture = std::make_shared<Texture>(texture_path);
 	m_size = { static_cast<float>(m_texture->get_width()), static_cast<float>(m_texture->get_height()) };
 }
 
-sprite::sprite(const unsigned int width, const unsigned int height, const color& c)
+Sprite::Sprite(const unsigned int width, const unsigned int height, const Color& c)
 {
     utils::gl::generate_vertex_buffer(m_vao, m_vbo, quad_vertices);
     utils::gl::upload_vertex_attribute(0, 2, 4 * sizeof(float), 0, nullptr);
     utils::gl::upload_vertex_attribute(1, 2, 4 * sizeof(float), 1, reinterpret_cast<void*>(2 * sizeof(float)));
 
-    m_texture = std::make_shared<texture>(width, height, c);
+    m_texture = std::make_shared<Texture>(width, height, c);
     m_size = { static_cast<float>(m_texture->get_width()), static_cast<float>(m_texture->get_height()) };
 }
 
-auto sprite::render(const render_context& ctx, const transform& tf) const -> void
+auto Sprite::render(const RenderContext& ctx, const Transform& tf) const -> void
 {
     auto model = glm::identity<glm::mat4>();
     model = glm::translate(model, glm::vec3(tf.get_position(), 0.0f));

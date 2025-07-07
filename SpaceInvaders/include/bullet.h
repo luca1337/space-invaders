@@ -1,40 +1,40 @@
 #pragma once
 
-#include <actor.h>
-#include <collision_listener.h>
+#include <Actor.h>
+#include <CollisionListener.h>
 #include <memory>
 #include <glm/vec2.hpp>
 
-class particle_emitter;
-class sprite_renderer;
-class animation_renderer;
+class ParticleEmitter;
+class SpriteRenderer;
+class AnimationRenderer;
 
-class player_bullet final : public actor, public collision_listener
+class PlayerBullet final : public Actor, public CollisionListener
 {
 public:
-	explicit player_bullet(world& w);
+	explicit PlayerBullet(World& w);
 
 	auto start() -> void override;
 	auto update(float delta_time) -> void override;
 
-	auto on_collision_enter(const hit_info& hit) -> void override;
+	auto on_collision_enter(const HitInfo& hit) -> void override;
 
 	glm::vec2 m_velocity = {};
 
 private:
-	std::shared_ptr<particle_emitter> m_impact_fx = {};
-	std::shared_ptr<sprite_renderer> m_sprite_component = {};
+	std::shared_ptr<ParticleEmitter> m_impact_fx = {};
+	std::shared_ptr<SpriteRenderer> m_sprite_component = {};
 };
 
-class enemy_bullet final : public actor, public collision_listener
+class EnemyBullet final : public Actor, public CollisionListener
 {
 public:
-	explicit enemy_bullet(world& w);
+	explicit EnemyBullet(World& w);
 
 	auto update(float delta_time) -> void override;
 
-	auto on_collision_enter(const hit_info& hit) -> void override;
+	auto on_collision_enter(const HitInfo& hit) -> void override;
 
 private:
-	std::shared_ptr<animation_renderer> m_animation_component = {};
+	std::shared_ptr<AnimationRenderer> m_animation_component = {};
 };

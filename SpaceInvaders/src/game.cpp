@@ -1,18 +1,15 @@
-#include <game.h>
+#include <EnemyFormation.h>
+#include <Game.h>
+#include <ResourceManager.h>
+#include <Shield.h>
+#include <Ship.h>
+#include <Window.h>
+#include <World.h>
+#include <components/SpriteRenderer.h>
+#include <components/Transform.h>
+#include <rendering/Camera.h>
 
-#include <resource_manager.h>
-#include <components/sprite_renderer.h>
-#include <components/transform.h>
-#include <window.h>
-#include <world.h>
-#include <rendering/camera.h>
-#include <rendering/shader.h>
-
-#include <enemy_formation.h>
-#include <shield.h>
-#include <ship.h>
-
-auto game::init() -> void
+auto Game::init() -> void
 {
 	constexpr auto window_width = 800;
 	constexpr auto window_height = 600;
@@ -21,18 +18,18 @@ auto game::init() -> void
 	constexpr auto gl_minor_version = 6;
 
 	// -- Initialize SDL and OpenGL
-	auto win = std::make_shared<window>(window_width, window_height, window_depth, gl_major_version, gl_minor_version);
+	auto win = std::make_shared<Window>(window_width, window_height, window_depth, gl_major_version, gl_minor_version);
 	win->set_post_processing_enabled(false);
 
-	auto cam = std::make_shared<camera>(0, win->props().width, win->props().height, 0);
+	auto cam = std::make_shared<Camera>(0, win->props().width, win->props().height, 0);
 
-	m_world = std::make_shared<world>(win, cam);
+	m_world = std::make_shared<World>(win, cam);
 	m_world->setup();
 }
 
-auto game::setup() -> void
+auto Game::setup() -> void
 {
-	m_player = std::make_shared<ship>(*m_world);
+	m_player = std::make_shared<Ship>(*m_world);
 	m_player->start();
 
 	m_world->add_actor(m_player);
@@ -42,10 +39,10 @@ auto game::setup() -> void
 	{
 		constexpr auto spacing = 150.0f;
 
-		const auto shield_actor = std::make_shared<shield>(*m_world);
+		const auto shield_actor = std::make_shared<Shield>(*m_world);
 		shield_actor->start();
 
-		const auto& sprite_rend = shield_actor->get_component<sprite_renderer>();
+		const auto& sprite_rend = shield_actor->get_component<SpriteRenderer>();
 
 		const auto shield_width = sprite_rend->sprite_raw()->size().x;
 		const auto total_shields_width = shield_width * shield_num;
@@ -58,18 +55,18 @@ auto game::setup() -> void
 		const auto x = padding + i * (shield_width + spacing);
 		const auto y = m_world->get_window()->props().height - sprite_rend->sprite_raw()->size().y * shield_num;
 
-		const auto& transform = shield_actor->get_transform();
+		const auto& transform = shield_actor->transform();
 
 		transform->set_local_position({ x, y });
 		m_world->add_actor(shield_actor);
 	}
 
-	const auto en_formation = std::make_shared<enemy_formation>(*m_world);
+	const auto en_formation = std::make_shared<EnemyFormation>(*m_world);
 	en_formation->start();
 	m_world->add_actor(en_formation);
 }
 
-auto game::tick() const -> void
+auto Game::tick() const -> void
 {
 	m_world->update();
 }

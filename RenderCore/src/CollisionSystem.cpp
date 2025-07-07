@@ -1,24 +1,24 @@
-#include <actor.h>
+#include <Actor.h>
 #include <algorithm>
-#include <components/collider.h>
-#include <collision_listener.h>
-#include <collision_system.h>
-#include <hit_info.h>
+#include <components/Collider.h>
+#include <CollisionListener.h>
+#include <CollisionSystem.h>
+#include <HitInfo.h>
 #include <unordered_set>
 #include <utility>
-#include <world.h>
+#include <World.h>
 
 namespace
 {
 	struct actor_pair_hash
 	{
-		auto operator()(const std::pair<std::shared_ptr<actor>, std::shared_ptr<actor>>& p) const -> std::size_t
+		auto operator()(const std::pair<std::shared_ptr<Actor>, std::shared_ptr<Actor>>& p) const -> std::size_t
 		{
-			return std::hash<actor*>()(p.first.get()) ^ std::hash<actor*>()(p.second.get());
+			return std::hash<Actor*>()(p.first.get()) ^ std::hash<Actor*>()(p.second.get());
 		}
 	};
 
-	using actor_collision_pair = std::pair<std::shared_ptr<actor>, std::shared_ptr<actor>>;
+	using actor_collision_pair = std::pair<std::shared_ptr<Actor>, std::shared_ptr<Actor>>;
 	using actor_collision_set = std::unordered_set<actor_collision_pair, actor_pair_hash>;
 	auto active_collisions = actor_collision_set{};
 
@@ -38,18 +38,18 @@ namespace
 	};
 }
 
-auto collision_system::update_collisions(const world& w) -> void
+auto collision_system::update_collisions(const World& w) -> void
 {
 	constexpr int cell_size = 32;
 	const auto& actors = w.get_actors();
 
 	// step 1: costruisco la griglia
-	auto spatial_grid = std::unordered_map<cell_coord, std::vector<std::shared_ptr<actor>>, cell_coord_hash>{};
+	auto spatial_grid = std::unordered_map<cell_coord, std::vector<std::shared_ptr<Actor>>, cell_coord_hash>{};
 
 	for (const auto& actor : actors)
 	{
 		if (!actor->enabled()) continue;
-		const auto& col = actor->get_component<collider>();
+		const auto& col = actor->get_component<Collider>();
 		if (!col) continue;
 
 		const auto aabb = col->get_bounds();
@@ -68,7 +68,7 @@ auto collision_system::update_collisions(const world& w) -> void
 		}
 	}
 
-	// step 2: Collisioni solo all’interno delle celle evito di ciclare tutti gli actor partendo dal primo
+	// step 2: Collisioni solo all’interno delle celle evito di ciclare tutti gli Actor partendo dal primo
 	auto current_collisions = actor_collision_set{};
 
 	for (const auto& [cell, cell_actors] : spatial_grid)
@@ -76,18 +76,18 @@ auto collision_system::update_collisions(const world& w) -> void
 		for (auto i = 0ul; i != cell_actors.size(); ++i)
 		{
 			const auto& a = cell_actors[i];
-			const auto& a_col = a->get_component<collider>();
+			const auto& a_col = a->get_component<Collider>();
 			if (!a_col || !a->enabled()) continue;
 
 			for (auto j = i + 1; j != cell_actors.size(); ++j)
 			{
 				const auto& b = cell_actors[j];
-				const auto& b_col = b->get_component<collider>();
+				const auto& b_col = b->get_component<Collider>();
 				if (!b_col || !b->enabled()) continue;
 
 				if (glm::vec2 impact_point; a_col->collides_with(*b_col, impact_point))
 				{
-					auto info = hit_info{};
+					auto info = HitInfo{};
 					info.point = impact_point;
 
 					const auto& key = std::minmax({ a, b });
@@ -96,14 +96,14 @@ auto collision_system::update_collisions(const world& w) -> void
 					const auto is_new = !active_collisions.contains(key);
 
 					info.other = b->shared_from_this();
-					if (const auto& l = std::dynamic_pointer_cast<collision_listener>(a))
+					if (const auto& l = std::dynamic_pointer_cast<CollisionListener>(a))
 					{
 						if (is_new) l->on_collision_enter(info);
 						else l->on_collision_stay(info);
 					}
 
 					info.other = a->shared_from_this();
-					if (const auto& l = std::dynamic_pointer_cast<collision_listener>(b))
+					if (const auto& l = std::dynamic_pointer_cast<CollisionListener>(b))
 					{
 						if (is_new) l->on_collision_enter(info);
 						else l->on_collision_stay(info);
@@ -120,15 +120,15 @@ auto collision_system::update_collisions(const world& w) -> void
 		{
 			auto& [a_ptr, b_ptr] = prev;
 
-			auto info = hit_info{};
+			auto info = HitInfo{};
 			info.other = b_ptr->shared_from_this();
-			if (const auto& l = std::dynamic_pointer_cast<collision_listener>(a_ptr))
+			if (const auto& l = std::dynamic_pointer_cast<CollisionListener>(a_ptr))
 			{
 				l->on_collision_exit(info);
 			}
 
 			info.other = a_ptr->shared_from_this();
-			if (const auto& l = std::dynamic_pointer_cast<collision_listener>(b_ptr))
+			if (const auto& l = std::dynamic_pointer_cast<CollisionListener>(b_ptr))
 			{
 				l->on_collision_exit(info);
 			}

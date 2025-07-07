@@ -3,11 +3,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-class camera
+class Camera
 {
 public:
-	camera() = default;
-	camera(float left, float right, float bottom, float top);
+	Camera() = default;
+	Camera(float left, float right, float bottom, float top);
 
 	[[nodiscard]] const auto& position() const { return m_position; }
 	[[nodiscard]] auto& position() { return m_position; }

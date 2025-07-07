@@ -1,11 +1,12 @@
-#include <enemy.h>
-#include <logger.h>
-#include <resource_manager.h>
-#include <sprite.h>
-#include <types.h>
-#include <components/animation_renderer.h>
-#include <components/pixel_collider.h>
-#include <rendering/shader.h>
+#include <Enemy.h>
+#include <Logger.h>
+#include <ResourceManager.h>
+#include <Sprite.h>
+#include <Types.h>
+#include <components/AnimationRenderer.h>
+#include <components/PixelCollider.h>
+#include <rendering/Shader.h>
+#include <Actor.h>
 
 namespace
 {
@@ -29,56 +30,58 @@ namespace
 	};
 }
 
-enemy::enemy(world& w, const enemy_type& type) : actor{ w }, m_enemy_type{ type }
+Enemy::Enemy(World& world, const EnemyType& type) : Actor{ world }, m_enemy_type{ type }
 {
 
 }
 
-void enemy::build_enemy_frames_by_type()
+void Enemy::build_enemy_frames_by_type()
 {
-	const std::vector<std::string>* frames = {};
+	auto frames = std::vector<std::string>{};
 
 	switch (m_enemy_type)
 	{
-	case squid:   frames = &squid_frames; break;
-	case crab:    frames = &crab_frames; break;
-	case octopus: frames = &octopus_frames; break;
-	case ufo:     frames = &ufo_frames; break;
+	case squid:   frames = squid_frames; break;
+	case crab:    frames = crab_frames; break;
+	case octopus: frames = octopus_frames; break;
+	case ufo:     frames = ufo_frames; break;
 	case none:    return;
 	default: break;
 	}
 
-	if (!frames) return;
+	if (frames.empty()) return;
 
-	auto anim_clip = animation_renderer::animation_clip{};
+	auto anim_clip = AnimationRenderer::animation_clip{};
 
-	for (const auto& path : *frames)
+	for (auto&& path : frames)
 	{
-		const auto enemy_sprite_frame = std::make_shared<sprite>(path);
+		const auto enemy_sprite_frame = std::make_shared<Sprite>(path);
 		anim_clip.frames.push_back({ .frame_sprite = enemy_sprite_frame, .duration = 0.7f });
-		add_component<pixel_collider>(enemy_sprite_frame);
+		add_component<PixelCollider>(enemy_sprite_frame);
 	}
 
-	m_animation_component = add_component<animation_renderer>();
-	m_animation_component->set_animation("idle", anim_clip);
-	m_animation_component->play("idle", true);
+	add_component<AnimationRenderer>();
+	const auto anim_rend = get_component<AnimationRenderer>();
+	anim_rend->set_animation("idle", anim_clip);
+	anim_rend->play("idle", true);
 }
 
-void enemy::start()
+void Enemy::start()
 {
-	actor::start();
+	Actor::start();
 
 	build_enemy_frames_by_type();
 }
 
-void enemy::update(const float delta_time)
+void Enemy::update(const float delta_time)
 {
-	actor::update(delta_time);
+	Actor::update(delta_time);
+
 }
 
-void enemy::on_collision_enter(const hit_info& hit)
+void Enemy::on_collision_enter(const HitInfo& hit)
 {
-	collision_listener::on_collision_enter(hit);
+	CollisionListener::on_collision_enter(hit);
 
 	LOG_INFO("Enemy on_collision_enter with {}", static_cast<int>(m_enemy_type));
 }

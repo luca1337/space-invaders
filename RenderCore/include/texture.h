@@ -1,18 +1,18 @@
 #pragma once
 
-#include <color.h>
-#include <export.h>
+#include <Color.h>
+#include <Export.h>
 #include <string>
 #include <vector>
 #include <glad/glad.h>
 
-class RENDER_API texture
+class RENDER_API Texture
 {
 public:
-	~texture();
-	texture(const texture&);
-	explicit texture(const std::string &file_path);
-	explicit texture(unsigned width, unsigned height, color color);
+	~Texture();
+	Texture(const Texture&);
+	explicit Texture(const std::string &file_path);
+	explicit Texture(unsigned width, unsigned height, Color color);
 
 	[[nodiscard]] auto get_id() const { return m_texture_id; }
 
@@ -20,9 +20,9 @@ public:
 	[[nodiscard]] auto get_height() const { return m_height; }
 
 	[[nodiscard]] auto get_pixels() const -> const std::vector<unsigned char>& { return m_pixel_data; }
-	[[nodiscard]] auto get_pixel(const int x, const int y) const -> const color&;
+	[[nodiscard]] auto get_pixel(const int x, const int y) const -> const Color&;
 
-	auto set_pixel(int x, int y, const color& c) -> void;
+	auto set_pixel(int x, int y, const Color& c) -> void;
 	auto update_region(int x, int y, int width, int height) const -> void;
 	auto update() const -> void;
 

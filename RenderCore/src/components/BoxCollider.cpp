@@ -1,25 +1,25 @@
-#include <actor.h>
-#include <sprite.h>
-#include <components/box_collider.h>
-#include <components/transform.h>
+#include <Actor.h>
+#include <Sprite.h>
+#include <components/BoxCollider.h>
+#include <components/Transform.h>
 
-box_collider::box_collider(const std::shared_ptr<actor>& owner) : collider{ owner } 
+BoxCollider::BoxCollider(const std::shared_ptr<Actor>& owner) : Collider{ owner } 
 {
 }
 
-auto box_collider::get_bounds() const -> glm::vec4
+auto BoxCollider::get_bounds() const -> glm::vec4
 {
-	const auto& owner = get_owner().lock();
-	if (!owner) { return {}; }
+	const auto& ow = owner().lock();
+	if (!ow) { return {}; }
 
-	const auto& transform = owner->get_transform();
+	const auto& transform = ow->transform();
 	const auto& pos = transform->get_position();
 	const auto& size = transform->get_scale(); // oppure sprite->size() se non è uniforme
 
 	return { pos.x, pos.y, size.x, size.y };
 }
 
-auto box_collider::collides_with(const collider& other, glm::vec2& impact_point) const -> bool
+auto BoxCollider::collides_with(const Collider& other, glm::vec2& impact_point) const -> bool
 {
 	const auto& other_bounds = other.get_bounds();
 	const auto& self_bounds = get_bounds();

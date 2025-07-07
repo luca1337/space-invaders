@@ -1,27 +1,27 @@
 #pragma once
 
-#include <actor.h>
+#include <Actor.h>
 #include <memory>
 
-#include <collision_listener.h>
+#include <CollisionListener.h>
 
-class player_controller;
-class sprite_renderer;
+class PlayerController;
+class SpriteRenderer;
 class bullet;
-class game;
+class Game;
 
-class ship final : public actor, public collision_listener
+class Ship final : public Actor, public CollisionListener
 {
 public:
-	~ship() override = default;
-	explicit ship(world& w);
+	~Ship() override = default;
+	explicit Ship(World& w);
 
 	auto start() -> void override;
 	auto update(float delta_time) -> void override;
 
-	void on_collision_stay(const hit_info& hit) override;
+	void on_collision_stay(const HitInfo& hit) override;
 
 private:
-	std::shared_ptr<sprite_renderer> m_sprite_component = {};
+	std::shared_ptr<SpriteRenderer> m_sprite_component = {};
 };
 

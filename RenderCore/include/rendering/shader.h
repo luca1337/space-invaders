@@ -1,17 +1,17 @@
 #pragma once
 
-#include <iresource.h>
+#include <IResource.h>
 
 #include <glm/glm.hpp>
 #include <glad/glad.h>
 
 #include <string_view>
 
-class RENDER_API shader final : public iresource
+class RENDER_API Shader final : public IResource
 {
 public:
-    shader() = default;
-    shader(std::string_view vertex, std::string_view fragment);
+    Shader() = default;
+    Shader(std::string_view vertex, std::string_view fragment);
 
     auto bind() const { glUseProgram(m_program_id); }
     auto unbind() const { glUseProgram(0); }

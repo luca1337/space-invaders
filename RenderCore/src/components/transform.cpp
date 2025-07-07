@@ -1,19 +1,19 @@
-#include <components/transform.h>
+#include <components/Transform.h>
 
-transform::transform(const std::shared_ptr<actor>& owner) : component{ owner } {}
+Transform::Transform(const std::shared_ptr<Actor>& owner) : Component{ owner } {}
 
-auto transform::set_parent(const std::shared_ptr<transform>& parent) -> void
+auto Transform::set_parent(const std::shared_ptr<Transform>& parent) -> void
 {
 	if (parent == m_parent.lock()) { return; }
 
 	if (const auto old_parent = m_parent.lock())
 	{
-		old_parent->remove_child(std::static_pointer_cast<transform>(shared_from_this()));
+		old_parent->remove_child(std::static_pointer_cast<Transform>(shared_from_this()));
 	}
 
 	if (parent)
 	{
-		parent->add_child(std::static_pointer_cast<transform>(shared_from_this()));
+		parent->add_child(std::static_pointer_cast<Transform>(shared_from_this()));
 		m_local_position = m_position - parent->m_position;
 		m_previous_parent_rotation = parent->m_rotation;
 		m_previous_parent_scale = parent->m_scale;
@@ -22,7 +22,7 @@ auto transform::set_parent(const std::shared_ptr<transform>& parent) -> void
 	m_parent = parent;
 }
 
-auto transform::set_position(const glm::vec2& pos) -> void
+auto Transform::set_position(const glm::vec2& pos) -> void
 {
 	m_position = pos;
 
@@ -37,7 +37,7 @@ auto transform::set_position(const glm::vec2& pos) -> void
 	}
 }
 
-auto transform::set_local_position(const glm::vec2& pos) -> void
+auto Transform::set_local_position(const glm::vec2& pos) -> void
 {
 	m_local_position = pos;
 
@@ -56,7 +56,7 @@ auto transform::set_local_position(const glm::vec2& pos) -> void
 	}
 }
 
-auto transform::set_rotation(const float rot) -> void
+auto Transform::set_rotation(const float rot) -> void
 {
 	m_rotation = rot;
 
@@ -66,12 +66,12 @@ auto transform::set_rotation(const float rot) -> void
 	}
 }
 
-auto transform::set_euler_degrees(const float deg) -> void
+auto Transform::set_euler_degrees(const float deg) -> void
 {
 	set_rotation(glm::radians(deg));
 }
 
-auto transform::set_scale(const glm::vec2& s) -> void
+auto Transform::set_scale(const glm::vec2& s) -> void
 {
 	m_scale = s;
 
@@ -81,7 +81,7 @@ auto transform::set_scale(const glm::vec2& s) -> void
 	}
 }
 
-auto transform::update_child_position() -> void
+auto Transform::update_child_position() -> void
 {
 	if (const auto parent = m_parent.lock())
 	{
@@ -89,7 +89,7 @@ auto transform::update_child_position() -> void
 	}
 }
 
-auto transform::update_child_rotation() -> void
+auto Transform::update_child_rotation() -> void
 {
 	if (const auto parent = m_parent.lock())
 	{
@@ -107,7 +107,7 @@ auto transform::update_child_rotation() -> void
 	}
 }
 
-auto transform::update_child_scale() -> void
+auto Transform::update_child_scale() -> void
 {
 	if (const auto parent = m_parent.lock())
 	{
@@ -118,7 +118,7 @@ auto transform::update_child_scale() -> void
 	}
 }
 
-auto transform::add_child(const std::shared_ptr<transform>& child) -> void
+auto Transform::add_child(const std::shared_ptr<Transform>& child) -> void
 {
 	if (std::ranges::find(m_children, child) == m_children.end())
 	{
@@ -126,7 +126,7 @@ auto transform::add_child(const std::shared_ptr<transform>& child) -> void
 	}
 }
 
-auto transform::remove_child(const std::shared_ptr<transform>& child) -> void
+auto Transform::remove_child(const std::shared_ptr<Transform>& child) -> void
 {
 	std::erase(m_children, child);
 }

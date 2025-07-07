@@ -1,8 +1,8 @@
-#include <rendering/post_processing.h>
+#include <rendering/PostProcessing.h>
 
-#include <utils.h>
+#include <Utils.h>
 
-post_processing::post_processing(const window& window) : m_Window(window)
+PostProcessing::PostProcessing(const Window& window) : m_Window(window)
 {
     const auto quad_vertices = std::vector<float>
     {

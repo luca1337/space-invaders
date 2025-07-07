@@ -3,10 +3,10 @@
 #include <glm/vec2.hpp>
 #include <memory>
 
-class actor;
+class Actor;
 
-struct hit_info
+struct HitInfo
 {
 	glm::vec2 point = { };
-	std::shared_ptr<actor> other = {};
+	std::shared_ptr<Actor> other = {};
 };

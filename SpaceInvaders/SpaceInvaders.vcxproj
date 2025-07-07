@@ -19,15 +19,15 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\bullet.cpp" />
-    <ClCompile Include="src\components\player_controller.cpp" />
-    <ClCompile Include="src\components\shooter_component.cpp" />
-    <ClCompile Include="src\enemy.cpp" />
-    <ClCompile Include="src\enemy_formation.cpp" />
-    <ClCompile Include="src\game.cpp" />
+    <ClCompile Include="src\Bullet.cpp" />
+    <ClCompile Include="src\components\PlayerController.cpp" />
+    <ClCompile Include="src\components\ShooterComponent.cpp" />
+    <ClCompile Include="src\Enemy.cpp" />
+    <ClCompile Include="src\EnemyFormation.cpp" />
+    <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\shield.cpp" />
-    <ClCompile Include="src\ship.cpp" />
+    <ClCompile Include="src\Shield.cpp" />
+    <ClCompile Include="src\Ship.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\RenderCore\RenderCore.vcxproj">
@@ -41,15 +41,15 @@
     <None Include="..\RenderCore\resources\shaders\vertex_sprite.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\bullet.h" />
-    <ClInclude Include="include\components\player_controller.h" />
-    <ClInclude Include="include\components\shooter_component.h" />
-    <ClInclude Include="include\enemy.h" />
-    <ClInclude Include="include\enemy_formation.h" />
-    <ClInclude Include="include\game.h" />
-    <ClInclude Include="include\shield.h" />
-    <ClInclude Include="include\ship.h" />
-    <ClInclude Include="include\types.h" />
+    <ClInclude Include="include\Bullet.h" />
+    <ClInclude Include="include\components\PlayerController.h" />
+    <ClInclude Include="include\components\ShooterComponent.h" />
+    <ClInclude Include="include\Enemy.h" />
+    <ClInclude Include="include\EnemyFormation.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Shield.h" />
+    <ClInclude Include="include\Ship.h" />
+    <ClInclude Include="include\Types.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

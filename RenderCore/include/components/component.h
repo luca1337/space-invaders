@@ -2,30 +2,39 @@
 
 #include <memory>
 #include <optional>
-#include <rendering/render_context.h>
+#include <rendering/RenderContext.h>
 
-class actor;
+class Actor;
 
-class component : public std::enable_shared_from_this<component>
+class Component : public std::enable_shared_from_this<Component>
 {
 public:
-    virtual ~component() = default;
-	explicit component(const std::weak_ptr<actor>& owner) : m_owner(owner) {}
+    virtual ~Component() = default;
+	explicit Component(const std::weak_ptr<Actor>& owner) : m_owner(owner) {}
 
     virtual void start() {}
     virtual void update(float delta_time) {}
     virtual void on_destroy() {}
 
-    [[nodiscard]] const auto& get_owner() const { return m_owner; }
-    auto& get_owner() { return m_owner; }
+    // --- Owner ---
+    [[nodiscard]] const auto& owner() const { return m_owner; }
+    auto& owner() { return m_owner; }
+
+    // --- Enable flag (getter/setter stile fluent) ---
+    [[nodiscard]] const auto& enabled() const { return m_enabled; }
+    auto& enabled()  { return m_enabled; }
+
+    // --- Debug flag (getter/setter stile fluent) ---
+    [[nodiscard]] const auto& debug() const { return m_debug; }
+    auto& debug() { return m_debug; }
 
     // --- Render context ---
-    auto set_render_context(render_context ctx) { m_render_context = std::move(ctx); }
-    [[nodiscard]] const auto& get_render_context() const { return m_render_context; }
+    [[nodiscard]] const auto& render_context() const { return m_render_context; }
+    auto& render_context() { return m_render_context; }
 
 protected:
-    std::optional<render_context> m_render_context = {};
-
-protected:
-    std::weak_ptr<actor> m_owner = {};
+    std::weak_ptr<Actor> m_owner = {};
+    std::optional<RenderContext> m_render_context = {};
+    bool m_enabled = true;
+    bool m_debug = false;
 };

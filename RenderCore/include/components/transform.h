@@ -1,22 +1,19 @@
 #pragma once
 
-#include <components/component.h>
-
+#include <memory>
+#include <vector>
+#include <components/Component.h>
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include <vector>
-#include <memory>
-#include <algorithm>
-
-class transform final : public component
+class Transform final : public Component
 {
 public:
-    explicit transform(const std::shared_ptr<actor>& owner);
+    explicit Transform(const std::shared_ptr<Actor>& owner);
 
-    auto set_parent(const std::shared_ptr<transform>& parent) -> void;
-    [[nodiscard]] auto get_parent() const -> std::shared_ptr<transform> { return m_parent.lock(); }
-    [[nodiscard]] auto get_children() const -> const std::vector<std::shared_ptr<transform>>& { return m_children; }
+    auto set_parent(const std::shared_ptr<Transform>& parent) -> void;
+    [[nodiscard]] auto get_parent() const -> std::shared_ptr<Transform> { return m_parent.lock(); }
+    [[nodiscard]] auto get_children() const -> const std::vector<std::shared_ptr<Transform>>& { return m_children; }
 
     auto set_position(const glm::vec2& pos) -> void;
     [[nodiscard]] auto get_position() const -> const glm::vec2& { return m_position; }
@@ -38,11 +35,11 @@ private:
     auto update_child_rotation() -> void;
     auto update_child_scale() -> void;
 
-    auto add_child(const std::shared_ptr<transform>& child) -> void;
-    auto remove_child(const std::shared_ptr<transform>& child) -> void;
+    auto add_child(const std::shared_ptr<Transform>& child) -> void;
+    auto remove_child(const std::shared_ptr<Transform>& child) -> void;
 
-    std::weak_ptr<transform> m_parent;
-    std::vector<std::shared_ptr<transform>> m_children = {};
+    std::weak_ptr<Transform> m_parent;
+    std::vector<std::shared_ptr<Transform>> m_children = {};
 
     glm::vec2 m_position = { 0.0f, 0.0f };
     glm::vec2 m_local_position = { 0.0f, 0.0f };

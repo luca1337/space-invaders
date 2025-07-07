@@ -1,13 +1,13 @@
 #pragma once
 
-#include <enums.h>
+#include <Enums.h>
 #include <memory>
-#include <sprite.h>
+#include <Sprite.h>
 #include <vector>
 #include <glad/glad.h>
 #include <glm/glm.hpp>
 
-struct particle
+struct Particle
 {
 	glm::vec2 position = {};
 	glm::vec2 scale = { 1.0f, 1.0f };
@@ -20,12 +20,12 @@ struct particle
 	bool should_expire = {};
 };
 
-class shader;
-class texture;
+class Shader;
+class Texture;
 
-auto direction_by_shape_type(shape_type type) -> glm::vec2;
+auto direction_by_shape_type(ShapeType type) -> glm::vec2;
 
-class particle_system
+class ParticleSystem
 {
 	static constexpr float particle_quad_vertices[] = {
 		0.0f, 1.0f,       0.0f, 1.0f,
@@ -38,15 +38,15 @@ class particle_system
 	};
 
 public:
-	~particle_system() = default;
-	particle_system() = delete;
-	particle_system(glm::vec2 position, unsigned amount, float min_speed, float max_speed, float min_life_time, float max_life_time);
-	particle_system(const particle_system&) = delete;
-	particle_system(particle_system&&) = delete;
-	particle_system& operator=(const particle_system&) = delete;
-	particle_system& operator=(particle_system&&) = delete;
+	~ParticleSystem() = default;
+	ParticleSystem() = delete;
+	ParticleSystem(glm::vec2 position, unsigned amount, float min_speed, float max_speed, float min_life_time, float max_life_time);
+	ParticleSystem(const ParticleSystem&) = delete;
+	ParticleSystem(ParticleSystem&&) = delete;
+	ParticleSystem& operator=(const ParticleSystem&) = delete;
+	ParticleSystem& operator=(ParticleSystem&&) = delete;
 
-	auto set_shape_type(const shape_type shape_type) -> void { m_shape_type = shape_type; }
+	auto set_shape_type(const ShapeType shape_type) -> void { m_shape_type = shape_type; }
 	auto set_on_finish_callback(const std::function<void()>& callback) -> void { m_on_finish_callback = callback; }
 	auto reset() -> void;
 
@@ -60,11 +60,11 @@ public:
 	auto randomize_particles_position_between_bounds(float x_min, float x_max, float y_min, float y_max) -> void;
 	auto set_position(const glm::vec2& position) -> void;
 	auto update(float delta_time) -> void;
-	auto render(const render_context& ctx) const -> void;
+	auto render(const RenderContext& ctx) const -> void;
 
 private:
-	std::vector<particle> m_particles = {};
-	std::vector<particle> m_active_particles = {};
+	std::vector<Particle> m_particles = {};
+	std::vector<Particle> m_active_particles = {};
 
 	GLuint m_quad_vao = {};
 	GLuint m_quad_vbo = {};
@@ -74,7 +74,7 @@ private:
 	glm::vec2 m_position = {};
 	glm::vec2 m_start_pos = {};
 
-	shape_type m_shape_type = {};
+	ShapeType m_shape_type = {};
 
 	float m_min_speed = {};
 	float m_max_speed = {};
@@ -88,7 +88,7 @@ private:
 
 	unsigned m_amount = {};
 
-	std::shared_ptr<texture> m_texture = {};
+	std::shared_ptr<Texture> m_texture = {};
 
 	std::function<void()> m_on_finish_callback = {};
 
@@ -96,5 +96,5 @@ private:
 	auto generate_buffers() -> void;
 	auto initialize_particles() -> void;
 	auto activate_or_create_particle() -> void;
-	auto update_instance_buffer(const std::vector<particle>& particles) const -> void;
+	auto update_instance_buffer(const std::vector<Particle>& particles) const -> void;
 };

@@ -1,6 +1,6 @@
 #pragma once
 
-enum enemy_type
+enum EnemyType
 {
 	none = 0,
 	squid,

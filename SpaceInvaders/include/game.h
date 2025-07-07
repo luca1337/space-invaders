@@ -3,20 +3,20 @@
 #include <memory>
 #include <vector>
 
-class enemy;
-class ship;
-class shield;
-class world;
+class Enemy;
+class Ship;
+class Shield;
+class World;
 
-class game final
+class Game final
 {
 public:
-	~game() = default;
-    game() = default;
-    game(const game&) = delete;
-    game(game&&) = delete;
-    game& operator=(const game&) = delete;
-    game& operator=(game&&) = delete;
+	~Game() = default;
+    Game() = default;
+    Game(const Game&) = delete;
+    Game(Game&&) = delete;
+    Game& operator=(const Game&) = delete;
+    Game& operator=(Game&&) = delete;
 
 	auto init() -> void;
 	auto setup() -> void;
@@ -25,11 +25,11 @@ public:
 	[[nodiscard]] const auto& get_world() const { return m_world; }
 
 private:
-	std::shared_ptr<world> m_world = {};
+	std::shared_ptr<World> m_world = {};
 
 	// -- Game entities
-	std::vector<std::shared_ptr<shield>> m_shields = {};
-	std::shared_ptr<ship> m_player = {};
-	std::shared_ptr<enemy> m_enemy = {};
+	std::vector<std::shared_ptr<Shield>> m_shields = {};
+	std::shared_ptr<Ship> m_player = {};
+	std::shared_ptr<Enemy> m_enemy = {};
 };
 

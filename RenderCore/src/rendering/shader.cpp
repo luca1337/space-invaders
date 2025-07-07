@@ -1,7 +1,7 @@
 #include <filesystem>
-#include <rendering/shader.h>
+#include <rendering/Shader.h>
 
-#include <logger.h>
+#include <Logger.h>
 
 #include <format>
 #include <fstream>
@@ -48,7 +48,7 @@ auto compile_shader(const std::span<const char> shader_source, const GLenum shad
     return shader;
 }
 
-shader::shader(const std::string_view vertex, const std::string_view fragment)
+Shader::Shader(const std::string_view vertex, const std::string_view fragment)
 {
     const auto vertex_shader_code = read_shader(vertex.data());
     const auto fragment_shader_code = read_shader(fragment.data());

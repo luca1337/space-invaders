@@ -1,26 +1,26 @@
 #pragma once
 
-#include <actor.h>
-#include <collision_listener.h>
+#include <Actor.h>
+#include <CollisionListener.h>
 #include <memory>
-#include <sprite.h>
+#include <Sprite.h>
 
-class sprite_renderer;
-class game;
+class SpriteRenderer;
+class Game;
 
-class shield final : public actor, public collision_listener
+class Shield final : public Actor, public CollisionListener
 {
 public:
-	~shield() override = default;
-	explicit shield(world& w);
+	~Shield() override = default;
+	explicit Shield(World& w);
 
 	auto start() -> void override;
 	auto update(float delta_time) -> void override;
 
-	auto on_collision_enter(const hit_info& hit) -> void override;
+	auto on_collision_enter(const HitInfo& hit) -> void override;
 
 	auto take_damage(const glm::vec2& impact_point) const -> void;
 
 private:
-	std::shared_ptr<sprite_renderer> m_sprite_component = {};
+	std::shared_ptr<SpriteRenderer> m_sprite_component = {};
 };

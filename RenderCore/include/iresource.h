@@ -1,9 +1,9 @@
 #pragma once
 
- #include <export.h>
+ #include <Export.h>
 
-class RENDER_API iresource
+class RENDER_API IResource
 {
 public:
-    virtual ~iresource() = default;
+    virtual ~IResource() = default;
 };
