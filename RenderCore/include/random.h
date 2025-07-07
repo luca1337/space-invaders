@@ -2,6 +2,7 @@
 
 #include <random>
 #include <algorithm>
+#include <numbers>
 
 #include <Export.h>
 
@@ -14,6 +15,13 @@ public:
     template <typename T>
     static void shuffle_array(std::vector<T> &arr) { std::shuffle(arr.begin(), arr.end(), m_mt_generator); }
 
+    template <typename Type>
+    static std::tuple<Type, Type> generate_random_unit_in_circle(const Type radius)
+    {
+	    const auto angle = generate_random_number<float>(0.0f, 2.0f * static_cast<float>(std::numbers::pi));
+        const auto r = std::sqrt(generate_random_number<float>(0.0f, 1.0f));
+        return std::make_tuple(std::cos(angle) * r * radius, std::sin(angle) * r * radius);
+    }
 private:
     template <typename Type>
     static Type generate_random_number_internal(const Type min, const Type max, std::true_type)

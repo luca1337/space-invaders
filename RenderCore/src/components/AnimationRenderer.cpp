@@ -47,9 +47,9 @@ void AnimationRenderer::update(const float delta_time)
 
 void AnimationRenderer::render(const RenderContext& ctx)
 {
-	if (const auto sprite = current_sprite())
+	if (const auto& sprite = current_sprite())
 	{
-		if (const auto ow = owner().lock(); ow)
+		if (const auto& ow = owner().lock(); ow)
 		{
 			const auto& transform = ow->transform();
 			sprite->render(ctx, *transform);
@@ -57,7 +57,7 @@ void AnimationRenderer::render(const RenderContext& ctx)
 	}
 }
 
-auto AnimationRenderer::set_animation(const std::string& name, const animation_clip& clip) -> void
+auto AnimationRenderer::set_animation(const std::string& name, const AnimationClip& clip) -> void
 {
 	m_animations[name] = clip;
 }

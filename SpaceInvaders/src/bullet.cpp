@@ -82,7 +82,7 @@ void PlayerBullet::on_collision_enter(const HitInfo& hit)
 
 EnemyBullet::EnemyBullet(World& w) : Actor{ w }
 {
-	auto bullet_anim = AnimationRenderer::animation_clip{};
+	auto bullet_anim = AnimationRenderer::AnimationClip{};
 	bullet_anim.frames.push_back({ .frame_sprite = std::make_shared<Sprite>("assets/Projectiles/ProjectileC_1.png"), .duration = 0.1f });
 	bullet_anim.frames.push_back({ .frame_sprite = std::make_shared<Sprite>("assets/Projectiles/ProjectileC_2.png"), .duration = 0.1f });
 	bullet_anim.frames.push_back({ .frame_sprite = std::make_shared<Sprite>("assets/Projectiles/ProjectileC_3.png"), .duration = 0.1f });

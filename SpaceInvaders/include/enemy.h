@@ -22,7 +22,7 @@ public:
 	[[nodiscard]] auto get_type() const -> EnemyType { return m_enemy_type; }
 
 private:
-	EnemyType m_enemy_type = EnemyType::none;
+	EnemyType m_enemy_type = EnemyType::None;
 	std::shared_ptr<AnimationRenderer> m_animation_component = {};
 
 	auto build_enemy_frames_by_type() -> void;

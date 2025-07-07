@@ -14,7 +14,7 @@ class Transform;
 class Component;
 
 template <typename T>
-concept is_component = std::derived_from<T, Component>;
+concept IsComponent = std::derived_from<T, Component>;
 
 class Actor : public std::enable_shared_from_this<Actor>
 {
@@ -26,7 +26,7 @@ public:
 	virtual auto start() -> void;
 	virtual auto update(float delta_time) -> void;
 
-	template <is_component T, typename... Args>
+	template <IsComponent T, typename... Args>
 	auto add_component(Args&&... args) -> std::shared_ptr<T>
 	{
 		if (auto existing = get_component<T>())
@@ -40,7 +40,7 @@ public:
 		return new_comp;
 	}
 
-	template <is_component T>
+	template <IsComponent T>
 	auto get_exact_component() const -> std::shared_ptr<T>
 	{
 		if (const auto it = m_components.find(std::type_index(typeid(T))); it != m_components.end())
@@ -50,7 +50,7 @@ public:
 		return {};
 	}
 
-	template <is_component T>
+	template <IsComponent T>
 	auto get_component() const -> std::shared_ptr<T>
 	{
 		for (const auto& comp : m_components | std::views::values)
@@ -63,7 +63,7 @@ public:
 		return {};
 	}
 
-	template <is_component T>
+	template <IsComponent T>
 	auto has_component() const { return get_component<T>() != nullptr; }
 
 	[[nodiscard]] auto& enabled() { return m_enabled; }

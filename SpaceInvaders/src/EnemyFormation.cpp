@@ -20,9 +20,9 @@ EnemyFormation::EnemyFormation(World& w) : Actor{ w }
 	{
 		auto type = EnemyType{};
 
-		if (row == 0) { type = EnemyType::squid; }
-		else if (row <= 2) { type = EnemyType::crab; }
-		else { type = EnemyType::octopus; }
+		if (row == 0) { type = EnemyType::Squid; }
+		else if (row <= 2) { type = EnemyType::Crab; }
+		else { type = EnemyType::Octopus; }
 
 		auto group = EnemyGroup{ .type = type };
 
@@ -33,9 +33,6 @@ EnemyFormation::EnemyFormation(World& w) : Actor{ w }
 
 			auto en = std::make_shared<Enemy>(get_world(), type);
 			en->start();
-
-			const auto& anim_rend = en->get_component<AnimationRenderer>();
-			anim_rend->stop();
 
 			const auto& enemy_transform = en->transform();
 			enemy_transform->set_position(glm::vec2{ start_x + col * spacing_x,start_y + row * spacing_y });
@@ -56,4 +53,11 @@ void EnemyFormation::start()
 
 void EnemyFormation::update(float delta_time)
 {
+	for (auto& group : m_groups | std::views::values)
+	{
+		for (auto&& enemy : group)
+		{
+			
+		}
+	}
 }

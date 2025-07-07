@@ -41,17 +41,17 @@ void Enemy::build_enemy_frames_by_type()
 
 	switch (m_enemy_type)
 	{
-	case squid:   frames = squid_frames; break;
-	case crab:    frames = crab_frames; break;
-	case octopus: frames = octopus_frames; break;
-	case ufo:     frames = ufo_frames; break;
-	case none:    return;
-	default: break;
+	case Squid:   frames = squid_frames; break;
+	case Crab:    frames = crab_frames; break;
+	case Octopus: frames = octopus_frames; break;
+	case Ufo:     frames = ufo_frames; break;
+	case None:    return;
+	default: break;  // NOLINT(clang-diagnostic-covered-switch-default)
 	}
 
 	if (frames.empty()) return;
 
-	auto anim_clip = AnimationRenderer::animation_clip{};
+	auto anim_clip = AnimationRenderer::AnimationClip{};
 
 	for (auto&& path : frames)
 	{

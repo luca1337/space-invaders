@@ -2,9 +2,9 @@
 
 enum EnemyType
 {
-	none = 0,
-	squid,
-	crab,
-	octopus,
-	ufo,
+	None = 0,
+	Squid,
+	Crab,
+	Octopus,
+	Ufo,
 };
